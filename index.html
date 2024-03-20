@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="format-detection" content="address=no,email=no">
+<meta name="skype_toolbar" content="skype_toolbar_parser_compatible">
+<style>
+html,textarea {
+	font-size:15px;
+    color: #373737;
+    letter-spacing: 0.06rem;
+}
+figcaption,label{
+    font-size:1.2rem;
+}
+nav#gnavi{
+    margin: 3rem auto;
+}
+h1{
+    font-size: 3rem;
+  position: relative;
+  padding: 1rem 2rem calc(1rem + 10px);
+  background-color:#fffc99;
+  margin-left: 1rem !important;
+}
+
+h1:before {
+    position: absolute;
+    top: -1rem;
+    left: -1rem;
+    width: 100%;
+    height: 100%;
+    content: '';
+    border: 4px dotted #444;
+}
+h2,h3{
+    font-size: 2rem;
+}
+h2 {
+  position: relative;
+  overflow: hidden;
+  padding: 1.5rem 2rem 1.5rem 130px;
+  border-top: 3px solid #000;
+}
+
+h2:before {
+  position: absolute;
+  top: -150%;
+  left: -74px;
+  width: 200px;
+  height: 300%;
+  content: '';
+  -webkit-transform: rotate(25deg);
+  transform: rotate(25deg);
+  background: #000;
+}
+
+h2 span {
+  font-size: 40px;
+  font-size: 4rem;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  display: block;
+  padding-top: 3px;
+  padding-left: 16px;
+  color: #fff;
+}
+html *{
+    margin:0;
+}
+section{
+    display:flex;
+    flex-direction: column;
+}
+main{
+    max-width: 800px;
+    margin: 0 auto;
+}
+p{
+    line-height: 2rem;
+}
+ul{
+    line-height: 1.8rem;
+    padding-left: 2rem;
+}
+input{
+    height: 30px;
+    display: block;
+    width: 100%;
+}
+input[type="button"]{
+    font-size: 2rem;
+    padding: 0 2rem;
+    height: 50px;
+    color: #fff;
+    background: #116152;
+    border: none;
+    border-radius: 8px;
+    transition: all 0.15s linear;
+    margin: 0 auto;
+    display: block;
+}
+input[type="button"]:hover{
+    transition: all 0.15s linear;
+    background:#053129;
+    cursor:pointer;
+}
+.caution {
+  background: repeating-linear-gradient(135deg, #fff000d4, #fff000d4 10px, #262626c4 10px, #262626c4 20px);
+  padding: 6px;
+  display: inline-block;
+  border: 2px solid #5f5f5f;
+  border-radius: 4px;
+  box-shadow: 0px 0px 6px 0px #ac2e2ed4;
+}
+.caution .caution-inner {
+  background: #f7f7f7;
+  padding: 3rem 2rem 3rem 1rem;
+  border: 1px solid #262626c4;
+  min-width: 160px;
+}
+#sample{
+    min-height: 266px;
+}
+#sample textarea{
+    width:100%;
+    height:266px;
+}
+#daihon,#result-macros{
+    width: 100%;
+    height:400px;
+}
+.mb3{
+    margin-bottom:3rem;
+}
+.mt3{
+    margin-top: 3rem;
+}
+.mb5{
+    margin-bottom:5rem;
+}
+.mt5{
+    margin-top: 5rem;
+}
+.mb8{
+    margin-bottom: 8rem;
+}
+.mt8{
+    margin-top: 8rem;
+}
+footer{
+    width:100%;
+}
+.copyright{
+    text-align: center;
+    margin:2rem 0;
+}
+.note{
+    color:#c21e09;
+}
+/*schedule*/
+.flex-schedule {
+  max-width: 400px;
+  list-style: none;
+  margin: 0 2rem 0 2em;
+  padding-left: 20px;
+  border-left: 6px solid #ff5400;
+  box-sizing: border-box;
+}
+.flex-schedule-disabled{
+  max-width: 400px;
+  list-style: none;
+  margin: 0 2rem 0 2em;
+  padding-left: 20px;
+  border-left: 6px solid #d4d4d4;
+  box-sizing: border-box;
+}
+
+.flex-schedule li,
+.flex-schedule-disabled li{
+  width: 100%;
+  margin: 0 0;
+  padding: 5px 0;
+  position: relative;
+}
+
+.flex-schedule li::before{
+    content: "";
+  position: absolute;
+  left: -33px;
+  top: 24px;
+  background: #ff5400;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+}
+.flex-schedule-disabled li::before {
+    content: "";
+  position: absolute;
+  left: -33px;
+  top: 24px;
+  background: #d4d4d4;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+}
+
+.flex-schedule .sch_box,
+.flex-schedule-disabled .sch_box{
+  display: inline-block;
+  width: 100%;
+  margin-left: 30px;
+  padding: 15px 10px 15px 10px;
+  vertical-align: middle;
+  background: #efefef;
+  box-sizing: border-box;
+  border-radius: 6px;
+}
+
+.flex-schedule .sch_title,
+.flex-schedule-disabled .sch_title{
+  font-size: 16px;
+  font-weight: 700;
+}
+.flex-schedule .sch_tx,
+.flex-schedule-disabled .sch_tx {
+  font-size: 14px;
+  font-weight: normal;
+}
+span.term{
+    font-size: 90%;
+    font-weight: bold;
+    color: #ce0e0e;
+    display: block;
+}
+/*ここまで*/
+
+/* + button */
+.c-markup_view {
+display: inline-block;
+  font-size: 40px;
+}
+.dli-plus-circle {
+  display: inline-block;
+  vertical-align: middle;
+  color: #333;
+  line-height: 1;
+  position: relative;
+  width: .8em;
+  height: .8em;
+  border: 0.1em solid currentColor;
+  border-radius: 50%;
+  box-sizing: content-box;
+  cursor:pointer;
+}
+
+.dli-plus-circle > span {
+  width: 46%;
+  height: 0.1em;
+  background: currentColor;
+  border-radius: 0.1em;
+  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.dli-plus-circle > span::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: inherit;
+  border-radius: inherit;
+  transform: rotate(90deg);
+}
+.add_chara{
+    text-align: center;
+}
+/* ここまで */
+
+/*吹き出し*/
+.balloon1 {
+  position: relative;
+  display: inline-block;
+  padding: 7px 10px;
+  min-width: 120px;
+  max-width: 100%;
+  color: #555;
+  font-size: 16px;
+  background: #e0edff;
+  border-radius: 15px;
+  bottom: 5px;
+  left: 12px;
+}
+
+.balloon1::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -20px;
+  margin-top: -7px;
+  border: 7px solid transparent;
+    border-right-width: 7px;
+    border-right-style: solid;
+    border-right-color: transparent;
+  border-right: 15px solid #e0edff;
+}
+.balloon1 p {
+  margin: 0;
+  padding: 0;
+}
+/* ここまで */
+
+#sample figcaption {
+  position: relative;
+  padding: 1.5rem 2rem;
+  color: #fff;
+  border-radius: 10px;
+  background: #094;
+  display: inline-block;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+#sample figcaption:after {
+  position: absolute;
+  bottom: -9px;
+  left: 1em;
+  width: 0;
+  height: 0;
+  content: '';
+  border-width: 10px 10px 0 10px;
+  border-style: solid;
+  border-color: #094 transparent transparent transparent;
+}
+.hidden{
+    display:none;
+}
+@media(min-width:700px){
+    main{
+        padding:3rem;
+    }
+}
+@media(max-width:700px){
+    html,textarea {
+        font-size:13px;
+    }
+    main{
+        margin:0 1rem;
+    }
+    h2 span {
+        font-size: 3rem;
+    }
+    h2::before {
+        left:-110px;
+    }
+    h2{
+        padding: .8rem 2rem 1.5rem 94px;
+        font-size: 1.6rem;
+    }
+}
+</style>
+
+<header id="site-header">
+    <div id="gheader">
+        <div class="humberger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <nav id="gnavi">
+        <ul>
+            <li>
+                <a href="/daihon-to-macro/">
+                <span>台本からマクロに加工</span>
+                </a>
+            </li>
+            <li>
+                <a href="/separate/">
+                <span>キャラ別に分ける</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<main id="home" class="mb8">
+    <h1 class="mb5">マクロ化ツール</h1>
+    <h2 class="mb3"><span>01</span>はじめに</h2>
+    <p class="mb3">このページでは、完成した台本を「エモートの入力」前までマクロ化していきます。</p>
+
+    <ul class="flex-schedule-disabled">
+        <li>
+            <div class="area">
+            <div class="sch_box">
+                <p class="sch_title">台本完成</p>
+            </div>
+            </div>
+        </li>
+      </ul>
+
+    <ul class="flex-schedule">
+        <!-- <li>
+          <div class="area">
+            <div class="sch_box">
+              <p class="sch_title">タイトル</p>
+              <p class="sch_tx">
+                内容テキストテキストテキストテキストテキストテキストテ<br>キスト
+              </p>
+            </div>
+          </div>
+        </li> -->
+        <li>
+            <div class="area">
+              <div class="sch_box">
+                <span class="term">※ここから</span><p class="sch_title">マクロ番号(連番)を振る</p>
+              </div>
+            </div>
+          </li>
+        <li>
+          <div class="area">
+            <div class="sch_box">
+              <p class="sch_title">マクロタイトル(セリフの出だし)を入力</p>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="area">
+            <div class="sch_box">
+              <p class="sch_title">/y や /cwl の入力</p>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="area">
+            <div class="sch_box">
+              <p class="sch_title">&lt;wait.N&gt;の入力</p><span class="term">※ここまで</span>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <ul class="flex-schedule-disabled">
+        <li>
+            <div class="area">
+            <div class="sch_box">
+                <p class="sch_title">エモートの入力</p>
+            </div>
+            </div>
+        </li>
+        <li>
+            <div class="area">
+            <div class="sch_box">
+                <p class="sch_title">マクロをキャラ別に分ける</p>
+            </div>
+            </div>
+        </li>
+      </ul>
+
+    <p class="mb5 mt5">完成した台本が↓の「台本サンプル」のような形式になっているかを、必ずご確認ください。</p>
+    <figure id="sample" class="mb3">
+        <figcaption>台本サンプル</figcaption>
+        <textarea name="textarea">
+◇1
+ルドラ：・・・はぁ～～。。
+　　　：暇だ・・。今日はお客さん来ねえなあ～・・
+ヒカリ：おぃーーす、やってるぅ？
+ルドラ：ぁ、いらっしゃいませ～...お！
+　　　：なんだ、ヒカリじゃん。
+ヒカリ：おう、ルドラ。久しぶり！
+※■■■■■　第2章　■■■■■
+♪音響【無常の喜び】
+※※ヒカリ、舞台中央の椅子に座る
+◇2
+ルドラ：久々だなあ～～。
+　　　：まあ、座ってくれよ！・・ラッシーでも飲むか？
+ヒカリ：いや、いらねえわ。</textarea>
+    </figure>
+    <h3>もう一度、台本をご確認ください</h3>
+    <div class="caution mb8">
+        <div class="caution-inner">
+            <div class="intro-text">
+                    <ul>
+                        <li>1行目や最終行、途中の行に空白の改行が含まれていたら、削除。</li>
+                        <li>章節は「◇N」の形式にする。Nは数字1字を表す。(「◇1」は1章を意味する。)</li>
+                        <li class="note"><strong>章節「◇N」の次の行には、必ずセリフとなるようにする。(指示書きにしないこと。)</strong></li>
+                        <li>妖精さんパートを作成する時は、OPなら先頭行を「◇0」とし、EDなら「◇劇の終章+1」とする。</li>
+                        <li>指示書きは文頭に「※」を必ず含ませ、「※指示書き」の形式にする。</li>
+                        <li>「※」を文字として残したい場合は、「※※」と書く。</li>
+                        <li>BGMは文頭に「♪」を必ず含ませ、「♪BGM」の形式にする。</li>
+                        <li>キャラ名が明かされる前の？？？は、この段階ではキャラ名を入力し、完成した後に手動で修正する。</li>
+                    </ul>
+            </div>
+        </div>
+    </div>
+    
+    <h2 class="mb3"><span>02</span>台本をマクロ化します</h2>
+    <div class="mb3">
+        <label for="chara01">登場人物 1</label>
+        <input size="6" maxlength="3" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara01" id="chara01">
+    </div>
+
+    <div class="second_chara">
+        <div class="mb3">
+            <label for="chara02">登場人物 2</label>
+            <input size="6" maxlength="3" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara02" id="chara02">
+        </div>
+        <div class="add_chara mb3">
+            <div class="c-markup_view">
+                <span class="dli-plus-circle"><span></span></span>
+            </div>
+            <div class="balloon1">
+                <p>3人目の登場人物を追加</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="third_chara hidden">
+        <div class="mb3">
+            <label for="chara02">登場人物 3</label>
+            <input size="6" maxlength="3" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara03" id="chara03">
+        </div>
+    
+        <div class="add_chara mb3">
+            <div class="c-markup_view">
+                <span class="dli-plus-circle"><span></span></span>
+            </div>
+            <div class="balloon1">
+                <p>4人目の登場人物を追加</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="fourth_chara hidden">
+        <div class="mb3">
+            <label for="chara02">登場人物 4</label>
+            <input size="6" maxlength="3" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara04" id="chara04">
+        </div>
+    
+        <div class="add_chara mb3">
+            <div class="c-markup_view">
+                <span class="dli-plus-circle"><span></span></span>
+            </div>
+            <div class="balloon1">
+                <p>5人目の登場人物を追加</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="fifth_chara hidden">
+        <div class="mb3">
+            <label for="chara02">登場人物 5</label>
+            <input size="6" maxlength="3" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara05" id="chara05">
+        </div>
+    
+        <div class="add_chara mb3">
+            <div class="c-markup_view">
+                <span class="dli-plus-circle"><span></span></span>
+            </div>
+            <div class="balloon1">
+                <p>6人目の登場人物を追加</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="sixth_chara hidden">
+        <div class="mb3">
+            <label for="chara02">登場人物 6</label>
+            <input size="6" maxlength="3" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara06" id="chara06">
+        </div>
+    </div>
+
+    <section id="input-daihon" class="mb5">
+        <figure>
+            <figcaption>台本</figcaption>
+            <textarea name="textarea" placeholder="ここに台本を貼り付けます..." id="daihon"></textarea>
+        </figure>
+    </section>
+    <input type="button" value="マクロ化を実行"  id="run">
+
+    <h2 class="mb5 mt8"><span>03</span>完成したマクロをコピーします</h2>
+    <section id="result" class="mb8">
+        <figure class="mb5">
+            <figcaption>完成マクロ</figcaption>
+            <textarea name="textarea" id="result-macros"></textarea>
+        </figure>
+        <p class="note"></p>
+        <input type="button" value="マクロをコピー" id="copy">
+    </section>
+
+    <h2 class="mb3 mt8"><span>04</span>txtファイルを作成して貼り付ける</h2>
+    <section id="result" class="mb8">
+        <p>ご自身のスマホやPCで、txtファイルを新しく作成し、コピーした台本を貼り付けて保存します。</p>
+        <p>完成マクロでは、wait.Nの待ち時間は、セリフ一行の文字数によって自動選択されています。</p>
+        <p>作者は、ご自身が意図するセリフのタイミングに修正してください。</p>
+    </section>
+</main>
+
+<footer style="margin-top:16rem;">
+    <div class="copyright">© 2024 劇団彩</div>
+</footer>
+
+<script>
+    /* 登場人物追加ボタン */
+    let addbtn = document.querySelectorAll(".c-markup_view");
+    addbtn.forEach(e => {
+        e.addEventListener('click', () => {
+            e.parentElement.classList.add("hidden");    //クリックした+ボタンを消す
+            let element = e.parentElement.parentElement.nextElementSibling;
+            //console.log("elementの値は：%o",element);
+            element.classList.remove("hidden");         //次の入力欄を表示する
+        })
+    })
+
+    /* マクロ化 */
+    let run = document.getElementById("run");
+    run.addEventListener("click", function(e){
+        //console.log("test");
+
+    });
+</script>
+</html>
