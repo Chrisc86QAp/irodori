@@ -843,5 +843,217 @@ ul.annotation > li::before {
     <div class="copyright">© 2024 劇団彩</div>
 </footer>
 
+<script>
+    /* 登場人物追加ボタン */
+    let addbtn = document.querySelectorAll(".c-markup_view");
+    addbtn.forEach(e => {
+        e.addEventListener('click', () => {
+            e.parentElement.classList.add("hidden");    //クリックした+ボタンを消す
+            let element = e.parentElement.parentElement.nextElementSibling;
+            //console.log("elementの値は：%o",element);
+            element.classList.remove("hidden");         //次の入力欄を表示する
+        })
+    })
 
+    /* マクロ化 */
+    let run = document.getElementById("run");
+    run.addEventListener("click", function(e){
+
+        //(入力判定)txtareaから入力した台本の文字列の文字数を取得
+        let t = document.getElementById('daihon').value.length;
+
+        if(t > 20){
+
+            const input = document.getElementById('daihon');            //input
+            const output = document.getElementById('result-macros');     //output
+            let result = input.value;                                        //result
+
+            //データクレンジング
+
+                // 空白の改行が含まれていた場合、置換
+                result = result.replace(/\n\n\n\n/gm,"\n")
+                .replace(/\n\n\n/gm,"\n")
+                .replace(/\n\n/gm,"\n");
+
+                //行末にスペースがあった場合、削除
+                result = result.replace(/^(.*)( |　)$/gm,"$1")
+                .replace(/^(.*)( |　)$/gm,"$1");
+
+                // ◇Nの"N"が全角だった場合に半角に置換
+                    const lines = result.split('\n');   // 行ごとに分割
+                    const pattern = /^◇([０-９]+)$/;   // 正規表現パターン："◇"の直後に全角数字がある行
+                    const convertedLines = [];         // 変換後の文字列を格納する配列
+
+                    // 各行を配列で処理
+                    for (const line of lines) {
+                        const match = line.match(pattern);
+                        if (match) {
+                            // 全角数字を半角数字に変換
+                            const fullwidthNumber = match[1];
+                            const halfwidthNumber = fullwidthNumber.replace(/[０-９]/g, (char) => {
+                                return String.fromCharCode(char.charCodeAt(0) - 0xfee0);
+                            });
+                            convertedLines.push(`◇${halfwidthNumber}`);
+                        } else {
+                            convertedLines.push(line);
+                        }
+                    }
+                    result = convertedLines.join('\n');   // 変換後の文字列を結合して表示
+
+                // 空白3つや:が半角だった場合、全角に置換
+                result = result.replace(/   /gm,"　　　")
+                .replace(/:/gm,"：");
+
+                //◇Nの次行に※や♪があった場合、行順序を入れ替える
+                result = result.replace(/^(◇\d$)\n(([※♪]).*$)/gm,"$2" + "\n" + "$1")
+                .replace(/^(◇\d$)\n(([※♪]).*$)/gm,"$2" + "\n" + "$1")
+                .replace(/^(◇\d$)\n(([※♪]).*$)/gm,"$2" + "\n" + "$1")
+                .replace(/^(◇\d$)\n(([※♪]).*$)/gm,"$2" + "\n" + "$1")
+                .replace(/^(◇\d$)\n(([※♪]).*$)/gm,"$2" + "\n" + "$1");
+
+            //-------------------------------
+
+            // バリデーション
+                //1.空白改行
+                const hasDoubleNewlines = /\n\n/m.test(result);
+                if(hasDoubleNewlines){alert("空白の改行が台本に存在します。\n台本を修正してください。");return;}
+
+                //2."◇"の直後にスペースや改行が来ていないか
+                const next = /^◇( |　|\n).*/m.test(result);
+                if(next){alert("◇の次に空白や改行が含まれています。\n台本を修正してください。");return;}
+
+                //3.章節の次行がセリフになっているか
+                const instructions = /^◇.*\n※/m.test(result);
+                const bgm = /^◇.*\n♪/m.test(result);
+                const space = /^◇.*\n( |　)+/m.test(result);
+                if(instructions || bgm || space){alert("◇N(章節)の次の行に指示書きやBGMが書かれています。\n章節の次の行にセリフがくるように修正してください。\n◇Nの次の行の行頭にスペースが無いか？についても、確認してください。");return;}
+
+                //4.登場人物名が重複していた場合、アラートを表示し終了。
+                const characterNameInputs = document.querySelectorAll('.character-name'); // HTMLからinput要素を取得
+                const characterNames = Array.from(characterNameInputs).map(input => input.value);
+                const nonEmptyCharacterNames = characterNames.filter(name => name.trim() !== '');
+                const hasDuplicates = new Set(nonEmptyCharacterNames).size !== nonEmptyCharacterNames.length;
+                if (hasDuplicates) {alert('登場人物名が重複しています。');return;}
+                
+            //-------------------------------
+            
+            
+                //登場人物名を取得し配列に格納
+                const charaNameArray = []; // 配列にプッシュするための空の配列
+                characterNameInputs.forEach((input) => {
+                    const inputValue = input.value.trim();
+                    if (inputValue.length === 2){               //キャラ名が2文字の場合
+                        charaNameArray.push(`${inputValue}　：`);
+                    }else if(inputValue.length === 3){          //キャラ名が3文字の場合
+                        charaNameArray.push(`${inputValue}：`);
+                    }
+                });
+                if(charaNameArray == ""){alert("登場人物名を正しく入力してください。");return;} //登場人物名が入力されていなかったり、1文字だった場合に処理を抜ける。
+
+                //「人物名：」の行頭に改行を挿入
+                for (const t of charaNameArray) {
+                    result = result.replace(new RegExp(t, "g"), `\n${t}`);
+                }
+
+                //ラジオボタンから「3桁」or「4桁」の情報を整数で取得
+                let elements = document.getElementsByName('digit');
+                let len = elements.length;
+                let checkValue = '';
+                for (let p = 0; p < len; p++) {
+                    if (elements.item(p).checked) {
+                        checkValue = elements.item(p).value;
+                    }
+                }
+
+                //◇の次の数字を取得しつつ、空白の改行にマクロ連番を振る
+                const lines2 = result.split('\n');  // 行ごとに分割
+                const maximumLine = lines2.length   // 行数
+                const pattern2 = /^◇(\d)$/gm;      // 正規表現パターン："◇"の直後に数字がある行
+                const pattern3 = /^$/gm;            // 空白の改行
+                const convertedLines2 = [];         // 変換後の文字列を格納する配列
+
+                let u;
+                for (let i = 0; i < maximumLine; i++) {
+                    if (lines2[i].match(pattern2)) {
+                        u = 0;
+                        if(checkValue == 3){
+                            u = Number(lines2[i].charAt(1)) * 100
+                        }else if(checkValue == 4){
+                            u = Number(lines2[i].charAt(1)) * 1000
+                        }
+                    }else if(lines2[i].match(pattern3)){
+                        let z = lines2[i+1].slice(0,8);     //次のセリフを先頭から8文字取得
+                        convertedLines2.push(u + " " + z);  //連番を振る
+                        u++;
+                    } else {
+                        convertedLines2.push(lines2[i]);
+                    }
+                }
+                result = convertedLines2.join('\n');   // 変換後の文字列を結合して表示
+
+
+                //上記までで、フォーマットされたとみなし、いよいよマクロに加工していく
+                result = result.replace(/^(\d{3,4})/gm,"\n" + "$1")             //マクロ番号の直前に改行を挿入
+                .replace(/(\n)\n(\d{3,4}.*$)/gm,"$1"+"/cwl "+"$2"+"\n"+"$2");    //セリフ最終行に、次のセリフを挿入
+                
+                for (const t of charaNameArray) {                               //「人物名：」の前に/yを挿入
+                    result = result.replace(new RegExp("^" + t, "gm"), `/y ${t}`);
+                }
+
+                result = result.replace(/^(　　　：)/gm,"/y " + "$1")             //セリフ2行目以降にも行頭に/yを挿入
+                .replace(/^(\d{3,4}.*$)/gm,"\n\n"+"$1")                        //マクロ番号の直前に改行を挿入
+                .replace(/^♪/gm,"/cwl ♪")
+                .replace(/^[※]/gm,"/cwl ")
+                .replace(/(^\/cwl.*$)(?!\n\n)/gm,"$1" + " <wait\.1>");              //セリフ最終行の次のセリフ以外の/cwlの末尾に<wait.1>を挿入
+
+                //一行ずつ走査し、/yセリフ行の場合、文字数をカウントして<wait.N>を挿入
+                const lines3 = result.split('\n');   // 行ごとに分割
+                const maximumLine2 = lines3.length   // 行数
+                const pattern4 = /^(\/y.*$)/gm;      // 正規表現パターン：行頭が/yで始まる行
+                const convertedLines3 = [];          // 変換後の文字列を格納する配列
+
+                for (let i = 0; i < maximumLine2; i++) {
+                    if (lines3[i].match(pattern4)) {
+                        let length = lines3[i].length;
+                        var z;
+                        if(length < 12){
+                            z = lines3[i] + " <wait.2>";        // ～4文字なら <wait.2>
+                        }
+                        else if(length >= 12 && length < 19){   // 5～11文字なら <wait.3>
+                            z = lines3[i] + " <wait.3>";
+                        }
+                        else if(length >= 19 && length < 27){   // 12～19文字なら <wait.4>
+                            z = lines3[i] + " <wait.4>";
+                        }
+                        else if(length >= 27){                  // 20字以上で <wait.5>
+                            z = lines3[i] + " <wait.5>";
+                        }
+                        convertedLines3.push(z);
+                    } else {
+                        convertedLines3.push(lines3[i]);
+                    }
+                }
+                result = convertedLines3.join('\n');   // 変換後の文字列を結合して表示
+
+                result = result.replace(/^(\/y.*<wait\.)\d(>$\n\/cwl)/gm,"$1" + "1" + "$2");             // /y行のうち、次行が/cwlのものだけwaitを1に変更
+
+            
+            output.value = result;                    //完成マクロのtextareaに反映
+            alert("マクロが出力されました。\nご確認ください。");
+        }else{
+            alert("台本の文字数が少ないようです。\nもう一度、お手元の台本を貼り付けてください。");
+        }
+    });
+
+    /*コピーボタンをクリックしたときにテキストをクリップボードにコピー*/
+    const copyButton = document.getElementById("copy");
+    copyButton.addEventListener("click", (e) => {
+        const textarea = document.getElementById("result-macros");
+        textarea.select();              // テキストを選択
+        document.execCommand("copy");   // クリップボードにコピー
+        alert("マクロをコピーしました。");
+    });
+
+
+</script>
 </html>
