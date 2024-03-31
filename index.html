@@ -517,8 +517,7 @@ ul.annotation > li::before {
         <div class="caution-inner">
             <div class="intro-text">
                     <ul>
-                        <li>1行目や最終行、途中の行に空白の改行が含まれていたら、削除。</li>
-                        <li>章節は「◇N」の形式にする。Nは数字1字を表す。(「◇1」は1章を意味する。)</li>
+                        <li>章節は「◇N」形式で記述。Nは数字1字を表す。(「◇1」は1章を意味する。)</li>
                         <li class="note"><strong>章節「◇N」の次の行には、必ずセリフとなるようにする。(指示書きにしないこと。)</strong></li>
                         <li>妖精さんパートを作成する時は、OPなら先頭行を「◇0」とし、EDなら「◇劇の終章+1」とする。</li>
                         <li>指示書きは文頭に「※」を必ず含ませ、「※指示書き」の形式にする。</li>
@@ -644,8 +643,11 @@ ul.annotation > li::before {
 ルドラ：俺の名前はルドラ。
 　　　：このサベネア島で理髪店を営んでいる。
 ♪♪【神々の訓え】
+※〇 明転[照度5] 〇
+※● [OFF]スポットライト ●
 ルドラ：・・・はぁ～～。。
 　　　：暇だ・・。今日はお客さん来ねえなあ～・・
+※ヒカリ登場
 ヒカリ：おぃーーす、やってるぅ？
 ルドラ：ぁ、いらっしゃいませ～...お！
 　　　：なんだ、ヒカリじゃん。
@@ -655,6 +657,7 @@ ul.annotation > li::before {
 ヒカリ：いや、いらねえわ。
 　　　：いきなりぼったくろうとするんじゃねえよ。
 　　　：・・ところで、突然来ちゃって悪いな。
+※ヒカリ、移動開始し椅子に座る。→ 歩行モードをOFF
 ルドラ：いいんだよ。このサベネア島では、予約する人なんかいないって。
 　　　：・・どうする？毛先を整える感じでいいか？
 ヒカリ：うん。たのむよ。
@@ -1032,8 +1035,7 @@ ul.annotation > li::before {
 ルドラ：わ、わかった！マケボだな？！
 　　　：・・あ、そうだ。
 　　　：お前も鳥には気をつけろ！
-♪♪【無音】
-            </textarea>
+♪♪【無音】</textarea>
         </figure>
     </section>
     <input type="button" value="マクロ化を実行"  id="run">
@@ -1085,6 +1087,51 @@ ul.annotation > li::before {
             const output = document.getElementById('result-macros');     //output
             let result = input.value;                                        //result
 
+            //データクレンジング
+
+                // 空白の改行が含まれていた場合、置換
+                result = result.replace(/\n\n\n\n/gm,"\n")
+                .replace(/\n\n\n/gm,"\n")
+                .replace(/\n\n/gm,"\n");
+
+                //行末にスペースがあった場合、削除
+                result = result.replace(/^(.*)( |　)$/gm,"$1")
+                .replace(/^(.*)( |　)$/gm,"$1");
+
+                // ◇Nの"N"が全角だった場合に半角に置換
+                    const lines = result.split('\n');   // 行ごとに分割
+                    const pattern = /^◇([０-９]+)$/;   // 正規表現パターン："◇"の直後に全角数字がある行
+                    const convertedLines = [];         // 変換後の文字列を格納する配列
+
+                    // 各行を配列で処理
+                    for (const line of lines) {
+                        const match = line.match(pattern);
+                        if (match) {
+                            // 全角数字を半角数字に変換
+                            const fullwidthNumber = match[1];
+                            const halfwidthNumber = fullwidthNumber.replace(/[０-９]/g, (char) => {
+                                return String.fromCharCode(char.charCodeAt(0) - 0xfee0);
+                            });
+                            convertedLines.push(`◇${halfwidthNumber}`);
+                        } else {
+                            convertedLines.push(line);
+                        }
+                    }
+                    result = convertedLines.join('\n');   // 変換後の文字列を結合して表示
+
+                // 空白3つや:が半角だった場合、全角に置換
+                result = result.replace(/   /gm,"　　　")
+                .replace(/:/gm,"：");
+
+                //◇Nの次行に※や♪があった場合、行順序を入れ替える
+                result = result.replace(/^(◇\d$)\n(([※♪]).*$)/gm,"$2" + "\n" + "$1")
+                .replace(/^(◇\d$)\n(([※♪]).*$)/gm,"$2" + "\n" + "$1")
+                .replace(/^(◇\d$)\n(([※♪]).*$)/gm,"$2" + "\n" + "$1")
+                .replace(/^(◇\d$)\n(([※♪]).*$)/gm,"$2" + "\n" + "$1")
+                .replace(/^(◇\d$)\n(([※♪]).*$)/gm,"$2" + "\n" + "$1");
+
+            //-------------------------------
+
             // バリデーション
                 //1.空白改行
                 const hasDoubleNewlines = /\n\n/m.test(result);
@@ -1092,7 +1139,7 @@ ul.annotation > li::before {
 
                 //2."◇"の直後にスペースや改行が来ていないか
                 const next = /^◇( |　|\n).*/m.test(result);
-                if(hasDoubleNewlines){alert("◇の次に空白や改行が含まれています。\n台本を修正してください。");return;}
+                if(next){alert("◇の次に空白や改行が含まれています。\n台本を修正してください。");return;}
 
                 //3.章節の次行がセリフになっているか
                 const instructions = /^◇.*\n※/m.test(result);
@@ -1107,35 +1154,6 @@ ul.annotation > li::before {
                 const hasDuplicates = new Set(nonEmptyCharacterNames).size !== nonEmptyCharacterNames.length;
                 if (hasDuplicates) {alert('登場人物名が重複しています。');return;}
                 
-            //-------------------------------
-            
-
-            // ◇Nの"N"が全角だった場合に半角に置換
-                const lines = result.split('\n');   // 行ごとに分割
-                const pattern = /^◇([０-９]+)$/;   // 正規表現パターン："◇"の直後に全角数字がある行
-                const convertedLines = [];         // 変換後の文字列を格納する配列
-
-                // 各行を配列で処理
-                for (const line of lines) {
-                    const match = line.match(pattern);
-                    if (match) {
-                        // 全角数字を半角数字に変換
-                        const fullwidthNumber = match[1];
-                        const halfwidthNumber = fullwidthNumber.replace(/[０-９]/g, (char) => {
-                            return String.fromCharCode(char.charCodeAt(0) - 0xfee0);
-                        });
-                        convertedLines.push(`◇${halfwidthNumber}`);
-                    } else {
-                        convertedLines.push(line);
-                    }
-                }
-                result = convertedLines.join('\n');   // 変換後の文字列を結合して表示
-            //-------------------------------
-
-            // 空白3つや:が半角だった場合、全角に置換
-                result = result.replace(/   /gm,"　　　")
-                .replace(/:/gm,"：");
-
             //-------------------------------
             
             
@@ -1246,17 +1264,14 @@ ul.annotation > li::before {
         }
     });
 
-    /*コピーボタン*/
-
-        
-// 例: ボタンをクリックしたときにテキストをクリップボードにコピー
-const copyButton = document.getElementById("copy");
-copyButton.addEventListener("click", (e) => {
-    const textarea = document.getElementById("result-macros");
-    textarea.select();              // テキストを選択
-    document.execCommand("copy"); // クリップボードにコピー
-    alert("マクロをコピーしました。");
-});
+    /*コピーボタンをクリックしたときにテキストをクリップボードにコピー*/
+    const copyButton = document.getElementById("copy");
+    copyButton.addEventListener("click", (e) => {
+        const textarea = document.getElementById("result-macros");
+        textarea.select();              // テキストを選択
+        document.execCommand("copy");   // クリップボードにコピー
+        alert("マクロをコピーしました。");
+    });
 
 
 </script>
