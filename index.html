@@ -12,7 +12,7 @@ html,textarea {
     color: #373737;
     letter-spacing: 0.06rem;
 }
-figcaption,label{
+figcaption,label,legend{
     font-size:1.2rem;
 }
 nav#gnavi{
@@ -20,12 +20,11 @@ nav#gnavi{
 }
 h1{
     font-size: 3rem;
-  position: relative;
-  padding: 1rem 2rem calc(1rem + 10px);
-  background-color:#fffc99;
-  margin-left: 1rem !important;
+    position: relative;
+    padding: 1rem 2rem calc(1rem + 10px);
+    background-color:#fffc99;
+    margin-left: 1rem !important;
 }
-
 h1:before {
     position: absolute;
     top: -1rem;
@@ -56,7 +55,6 @@ h2:before {
   transform: rotate(25deg);
   background: #000;
 }
-
 h2 span {
   font-size: 40px;
   font-size: 4rem;
@@ -87,6 +85,9 @@ ul{
     line-height: 1.8rem;
     padding-left: 2rem;
 }
+fieldset{
+    padding:1rem 1.3rem;
+}
 input{
     height: 30px;
     display: block;
@@ -108,6 +109,11 @@ input[type="button"]:hover{
     transition: all 0.15s linear;
     background:#053129;
     cursor:pointer;
+}
+input[type="radio"]{
+    width: 16px;
+    height: 16px;
+    display: inline-block;
 }
 .caution {
   background: repeating-linear-gradient(135deg, #fff000d4, #fff000d4 10px, #262626c4 10px, #262626c4 20px);
@@ -368,6 +374,22 @@ display: inline-block;
         font-size: 1.6rem;
     }
 }
+ul.annotation {
+    list-style:none;
+  position: relative;
+  margin-left:2rem;
+  padding:0;
+}
+ul.annotation li {
+  color: #df0300;
+  font-size: 85%;
+}
+ul.annotation > li::before {
+  content: "\203B";
+  position: absolute;
+  left: -17px;
+}
+
 </style>
 
 <header id="site-header">
@@ -475,7 +497,8 @@ display: inline-block;
 ♪音響【日溜り】
 ◇1
 ルドラ：・・・はぁ～～。。
-　　　：暇だ・・。今日はお客さん来ねえなあ～・・
+　　　：暇だ・・・。
+　　　：今日はお客さん来ねえなあ～・・・
 ヒカリ：おぃーーす、やってるぅ？
 ルドラ：ぁ、いらっしゃいませ～...お！
 　　　：なんだ、ヒカリじゃん。
@@ -485,7 +508,8 @@ display: inline-block;
 ※※ヒカリ、舞台中央の椅子に座る
 ◇2
 ルドラ：久々だなあ～～。
-　　　：まあ、座ってくれよ！・・ラッシーでも飲むか？
+　　　：まあ、座ってくれよ！
+　　　：・・・ラッシーでも飲むか？
 ヒカリ：いや、いらねえわ。</textarea>
     </figure>
     <h3>もう一度、台本をご確認ください</h3>
@@ -507,85 +531,509 @@ display: inline-block;
     </div>
     
     <h2 class="mb3"><span>02</span>台本をマクロ化します</h2>
-    <div class="mb3">
-        <label for="chara01">登場人物 1</label>
-        <input size="6" maxlength="3" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara01" id="chara01">
-    </div>
 
-    <div class="second_chara">
-        <div class="mb3">
-            <label for="chara02">登場人物 2</label>
-            <input size="6" maxlength="3" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara02" id="chara02">
+    <fieldset>
+        <legend>台本番号の桁数</legend>
+        <div>
+            <input type="radio" id="three-digit" name="digit" value="3" checked />
+            <label for="three-digit">3桁 <span></span></label>
         </div>
-        <div class="add_chara mb3">
-            <div class="c-markup_view">
-                <span class="dli-plus-circle"><span></span></span>
-            </div>
-            <div class="balloon1">
-                <p>3人目の登場人物を追加</p>
-            </div>
+        <div>
+            <input type="radio" id="four-digit" name="digit" value="4" />
+            <label for="four-digit">4桁 <span></span></label>
         </div>
-    </div>
+    </fieldset>
 
-    <div class="third_chara hidden">
-        <div class="mb3">
-            <label for="chara02">登場人物 3</label>
-            <input size="6" maxlength="3" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara03" id="chara03">
-        </div>
-    
-        <div class="add_chara mb3">
-            <div class="c-markup_view">
-                <span class="dli-plus-circle"><span></span></span>
-            </div>
-            <div class="balloon1">
-                <p>4人目の登場人物を追加</p>
-            </div>
-        </div>
-    </div>
+    <ul class="annotation mb5">
+        <li>「3桁」の場合、1章のマクロ番号を「100」から始め、101,102,103...</li>
+        <li>「4桁」の場合、1章のマクロ番号を「1000」から始め、1001,1002,1003...</li>
+    </ul>
 
-    <div class="fourth_chara hidden">
+    <fieldset class="mb5">
+        <legend>登場人物の入力</legend>
         <div class="mb3">
-            <label for="chara02">登場人物 4</label>
-            <input size="6" maxlength="3" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara04" id="chara04">
+            <label for="chara01">登場人物 1</label>
+            <input size="6" maxlength="3" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara01" id="chara01" class="character-name" value="ルドラ">
+            <ul class="annotation">
+                <li>サンプルで「ルドラ」を入力しております</li>
+            </ul>
         </div>
-    
-        <div class="add_chara mb3">
-            <div class="c-markup_view">
-                <span class="dli-plus-circle"><span></span></span>
-            </div>
-            <div class="balloon1">
-                <p>5人目の登場人物を追加</p>
-            </div>
-        </div>
-    </div>
 
-    <div class="fifth_chara hidden">
-        <div class="mb3">
-            <label for="chara02">登場人物 5</label>
-            <input size="6" maxlength="3" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara05" id="chara05">
-        </div>
-    
-        <div class="add_chara mb3">
-            <div class="c-markup_view">
-                <span class="dli-plus-circle"><span></span></span>
+        <div class="second_chara">
+            <div class="mb3">
+                <label for="chara02">登場人物 2 (サンプルで「ヒカリ」を入力しています)</label>
+                <input size="6" maxlength="3" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara02" id="chara02" class="character-name" value="ヒカリ">
+                <ul class="annotation">
+                    <li>サンプルで「ヒカリ」を入力しております</li>
+                </ul>
             </div>
-            <div class="balloon1">
-                <p>6人目の登場人物を追加</p>
+            <div class="add_chara mb3">
+                <div class="c-markup_view">
+                    <span class="dli-plus-circle"><span></span></span>
+                </div>
+                <div class="balloon1">
+                    <p>3人目の登場人物を追加</p>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="sixth_chara hidden">
-        <div class="mb3">
-            <label for="chara02">登場人物 6</label>
-            <input size="6" maxlength="3" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara06" id="chara06">
+        <div class="third_chara hidden">
+            <div class="mb3">
+                <label for="chara02">登場人物 3</label>
+                <input size="6" maxlength="3" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara03" id="chara03" class="character-name">
+            </div>
+        
+            <div class="add_chara mb3">
+                <div class="c-markup_view">
+                    <span class="dli-plus-circle"><span></span></span>
+                </div>
+                <div class="balloon1">
+                    <p>4人目の登場人物を追加</p>
+                </div>
+            </div>
         </div>
-    </div>
+
+        <div class="fourth_chara hidden">
+            <div class="mb3">
+                <label for="chara02">登場人物 4</label>
+                <input size="6" maxlength="3" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara04" id="chara04" class="character-name">
+            </div>
+        
+            <div class="add_chara mb3">
+                <div class="c-markup_view">
+                    <span class="dli-plus-circle"><span></span></span>
+                </div>
+                <div class="balloon1">
+                    <p>5人目の登場人物を追加</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="fifth_chara hidden">
+            <div class="mb3">
+                <label for="chara02">登場人物 5</label>
+                <input size="6" maxlength="3" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara05" id="chara05" class="character-name">
+            </div>
+        
+            <div class="add_chara mb3">
+                <div class="c-markup_view">
+                    <span class="dli-plus-circle"><span></span></span>
+                </div>
+                <div class="balloon1">
+                    <p>6人目の登場人物を追加</p>
+                </div>
+            </div>
+        </div>
+        <div class="sixth_chara hidden">
+            <div class="mb3">
+                <label for="chara02">登場人物 6</label>
+                <input size="6" maxlength="3" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara06" id="chara06" class="character-name">
+            </div>
+        </div>
+    </fieldset>
 
     <section id="input-daihon" class="mb5">
         <figure>
             <figcaption>台本</figcaption>
-            <textarea name="textarea" placeholder="ここに台本を貼り付けます..." id="daihon"></textarea>
+            <ul class="annotation">
+                <li>マクロ化を試すため、サンプルとして「サベネアの理髪師」が入力されています。</li>
+            </ul>
+            <textarea name="textarea" placeholder="ここに台本を貼り付けます..." id="daihon">
+♪♪【桟道を上りて】
+◇1
+ルドラ：俺の名前はルドラ。
+　　　：このサベネア島で理髪店を営んでいる。
+♪♪【神々の訓え】
+ルドラ：・・・はぁ～～。。
+　　　：暇だ・・。今日はお客さん来ねえなあ～・・
+ヒカリ：おぃーーす、やってるぅ？
+ルドラ：ぁ、いらっしゃいませ～...お！
+　　　：なんだ、ヒカリじゃん。
+ヒカリ：おう、ルドラ。久しぶり！
+ルドラ：久々だなあ～～。
+　　　：まあ、座ってくれよ！・・ラッシーでも飲むか？
+ヒカリ：いや、いらねえわ。
+　　　：いきなりぼったくろうとするんじゃねえよ。
+　　　：・・ところで、突然来ちゃって悪いな。
+ルドラ：いいんだよ。このサベネア島では、予約する人なんかいないって。
+　　　：・・どうする？毛先を整える感じでいいか？
+ヒカリ：うん。たのむよ。
+ルドラ：今日は何でまた、この島に来たんだ？
+ヒカリ：メーガス三姉妹のミニオンが欲しくてなぁ。
+　　　：ゾットの塔を周回してるんだよ。
+　　　：まあ、まだドロップすらしてないんだけどな～。
+ルドラ：周回って。。マケボで安く買えるだろ？
+ヒカリ：それじゃあ味気ないんだよ。
+　　　：ま、地に足をつけて商売してるお前には、分からないかもしれないけどさ。
+ルドラ：へぇ、ロマンかい。
+　　　：まあ俺も、趣味で釣りやってるからさ。少しだけ分かる気がするよ。
+　　　：・・あ、そうだ。
+　　　：昨日釣った「ジンガ」があるんだけど、食うか？
+ヒカリ：いや、いいわ。さっきから田舎のおばあちゃんか、お前は。
+　　　：いーよ、気を遣わないで。ありがたいけどよ！
+　　　：つーか、ジンガって何だっけ・・？
+ルドラ：エビだ。エビ。
+　　　：特にアルカソーダラ族はコレに目がなくてよ。
+　　　：「エビで象を釣る」ってコトワザがあるくらいなんだわ。
+ヒカリ：何だそれ。聞いたことねえよ。
+ルドラ：略して「エビゾウ」って言うの。
+ヒカリ：何かムズムズするな、その響き。。
+ルドラ：マトシャん家の前の浜で釣れるんだわ。
+ヒカリ：へぇ～～。
+　　　：じゃあ、マトシャの好物でもあるのか？
+ルドラ：『う～ん、ジンガはあんまり食べないだす』って言ってたわ。
+ヒカリ：全然「エビゾウ」になってねぇじゃねえかよ！！
+ルドラ：まあ、家の前で釣れりゃあ、飽きるわなぁ。
+♪♪【日溜り】
+◇2
+ヒカリ：・・そういえば、マトシャのヤツは元気か？
+　　　：お前、仲良かったよな？
+ルドラ：おうおう。
+　　　：まあ、、元気ぃ～・・・というか。。
+　　　：うーん、、
+ヒカリ：何だ？歯切れが悪いな。
+ルドラ：実はこの前さ、
+　　　：マトシャのヤツ、高熱出しちまってよ。
+ヒカリ：おー、それはそれは、
+ルドラ：解熱用のポーションを、届けてやったのよ。
+ヒカリ：この辺だと、アルキミヤ製薬堂とかで買って？
+ルドラ：そうそう、そんな感じ。
+　　　：んで、マトシャん家いくじゃん。
+　　　：そしたらマトシャのヤツ、竿の手入れをしていたんだわ。
+ヒカリ：へぇ、仕事熱心だねえ。
+ルドラ：だから、すぐ横に寝かせて「このポーションを飲め」って手渡したんだけど。
+　　　：あいつ、ポーションの味が大っっ嫌いらしくて、飲もうとしなくって。
+ヒカリ：どうやってサベネア島を生き抜いてきたんだよ・・
+　　　：Lv.80以上のモンスターがバンバン出てくる島だぞ・・
+ルドラ：そこはほら、あいつも漁師じゃん？
+　　　：「スニーク」使うから、敵から襲われないんだわ。
+ヒカリ：マトシャにそんな能力がッ！？
+ルドラ：そんで、飲ませようと何とか説得したのよ。
+　　　：そしたら観念したのか、ポーションを片手に持って、こう言ったんだわ。
+　　　：『鼻から吸って・・・ｽﾞｽﾞーｯ』
+ヒカリ：お、えらい。
+ルドラ：『・・口から出すだす』
+ヒカリ：汚ねえな！！
+　　　：あと、語尾の「だす」はもう要らねえだろ・・
+ルドラ：それからマトシャのヤツ、『また夢になるといけないだす』とか、良く分からんことを言ってきて。
+ヒカリ：・・それは落語の落ちだな。
+ルドラ：あまりにも飲まねえもんだから、もう俺、嘘ついちゃってよ。
+　　　：数日分のポーションを持って行ってたから、
+　　　：「こっちのポーションは、ニッダーナさんがお前のために作ってくれた、特製品だぞ。」って。
+ヒカリ：いやいや、、そんなの、すぐバレるだろぉ。
+ルドラ：・・そう思うじゃん？
+　　　：あいつも初めは疑ってたんだけど、
+　　　：「じゃあ、ニッダーナさんに返してくるわ」って帰ろうとしたら、
+　　　：ポーションのカゴに釣り針をひょいと引っかけて、竿で引き寄せやがるんだわ。
+ヒカリ：マトシャにそんな能力がッ！？
+ルドラ：もう、すっかりその気になっちゃって。
+ヒカリ：マトシャさん、見透かされてますよ＾＾
+ルドラ：ポーションをガッシリ握りしめて、ものっスゴい勢いで、ゴックゴク飲み始めて。
+ヒカリ：おー、結果オーライ？
+ルドラ：キレイに飲み干して、こう言ったんだわ。
+　　　：『まずいだす、もう一杯』
+ヒカリ：やかましいわ。
+　　　：お前のリキャスト、バグってんぞ。
+◇3
+ルドラ：そんでよ、『オラが寝付くまで、話し相手になって欲しいだす』って言うんだよ。
+　　　：しょうがねえから、あいつが寝ている横に座ってさ。
+ヒカリ：どんな話したの？
+ルドラ：・・恋バナ。
+ヒカリ：修学旅行じゃねえよ！？
+♪♪【啓示 ～蛮神スサノオ討滅戦～】
+ルドラ：俺が「ニッダーナさんがお前のために作ってくれた」なんて嘘つくから、
+　　　：あいつのハートに火がついちまったみたいで。。
+　　　：『ニッダーナさんに告白する前に、練習させて欲しいだす』って、しつこくせがんできてよ。
+　　　：んで、俺がニッダーナさん役で、あいつの告白を聞いててやったんだけど。。
+ヒカリ：・・どんな告白だったんだ？
+ルドラ：『オ、オラ・・・』
+　　　：『オラのサブリガ、洗って欲しいだす！！！』
+ヒカリ：いや、お前が洗え！！！
+　　　：・・待て待て待て。いきなり同棲を求めている・・だとぉ？？
+　　　：まず、2人はまだ付き合ってもいないんだろ？
+ルドラ：ああ。色々ツッコミどころがあるとは思うが・・。。
+　　　：でも本人は、『どうだっただすか？』
+　　　：『オラ的には100点満点だったと思うんだすが・・・』って言うんだよ。
+ヒカリ：お前の自己採点、バグってんぞ。
+ルドラ：まあ、あいつのまっすぐなところが、良いところでもあるんだけどな。
+ヒカリ：いや、まっすぐ過ぎるわッ！
+ルドラ：で、俺が返答に困ってたら、『アドバイスが欲しいだす』って言うんだよ。
+　　　：なんでも来月、ニッダーナさんの誕生日らしくてよ。
+ヒカリ：おお。チャンスじゃねえか。
+ルドラ：とりあえず、当日は「誕生日おめでとさん！」と言えって。
+　　　：んで続けて、「オメーの人生、ザックザクに切り刻んでやんよ！」
+　　　：キィィイイルゥゥゥ　オア　ダイッ！
+♪♪【桟道を上りて】
+ヒカリ：怖い怖い怖い！お前の業界、怖い！！
+　　　：まだサブリガの方が良かったわ。。
+　　　：マトシャは何て・・？
+ルドラ：『う～ん、オラ的には今のは65点だすなあ・・』
+ヒカリ：馬鹿ヤロウ。もっと拒否しろぉ、、
+♪♪【日溜り】
+ルドラ：あとはまあ、とりあえず「一緒にジンガ釣りに行きませんか？」って誘ってみろって、言っておいたわ。
+ヒカリ：それは・・楽しいのか・・？
+ルドラ：釣ったジンガを調理してさ、一緒に食事できるだろ？
+ヒカリ：おぉ、確かにな。
+　　　：いいじゃねえか！
+ルドラ：でも、いきなり二人きりだと断られやすいからさ、
+　　　：俺や他の錬金術師も誘って、ビーチでBBQしろって。
+　　　：そしたら俺もアシスト出来るからよって。
+ヒカリ：おぉ・・！いいね！お前、天才か！
+ルドラ：俺のこと、フィガロと呼んでもいいぞ？
+ヒカリ：いや、ちょっと何言ってんのか分かんないわ。
+ルドラ：まあ、そんな調子で、恋バナで盛り上がってたらよお！
+　　　：あいつも、だんだん興奮してきてさ。
+　　　：熱もどんどん上がって、顔も真っっ赤になってきてよ。
+ヒカリ：おいおい、大丈夫か・・・
+ルドラ：そしたらあいつ、フラつきながら、氷枕を作り始めたんだわ。
+ヒカリ：うん？サベネア島は熱帯だろ？？
+　　　：氷なんて、どこにあるんだよ？
+ルドラ：実はあいつ、「ダイヤモンドダスト」が使えるんだよ。
+ヒカリ：マトシャにそんな能力がッ！？
+ルドラ：あと「エクソダス」もな。
+　　　：ほら、2つとも「ダス」って文字が入ってるだろ？
+ヒカリ：いや、それは解るけどよ・・
+　　　：・・・・
+　　　：いや、、やっぱ分かんねえよ！！
+ルドラ：まあ、MPが低いから、しょぼいんだけどな。
+ヒカリ：納得いかねえよ、俺だってまだ、青魔でラーニングできないスキルだぞ！？
+ルドラ：おいおい、落ち着けって。。
+　　　：・・ジンガでも食うか？
+ヒカリ：いらねえわ！！
+ルドラ：炊飯器はそこにあるからな。
+ヒカリ：いや、だからいらねえわ！！
+　　　：腹が減ってイライラしてるわけじゃねえんだよ。
+　　　：・・つーかよ。
+　　　：お前、さっきからずーっと、俺の頭をなでてるように見えるんだけど。
+　　　：俺の髪、ちゃんと切ってくれてんのか？
+ルドラ：ああ、心配するな。ちゃんと切ってるよ。
+　　　：ちょうどいいエモートが無くてなぁ。
+ヒカリ：・・なんだか分かんねーけど、切ってくれてんなら、まあいいわ。
+ルドラ：んで、マトシャのヤツ、氷枕のおかげで、その後スヤスヤと眠り始めてよ。
+　　　：俺も役目を果たしたから、ポーションを置いて帰ったってわけ。
+　　　：翌日も様子を見に行ったら、熱もすっかり下がったみたいで、ひと安心したんだわ。
+ヒカリ：そうか。それはまあ、良かったわ。
+♪♪【無音】
+◇4
+ルドラ：・・だけど、この話にはまだ続きがあってさ。
+　　　：少し奇妙な話なんだけど。。
+ヒカリ：うん？
+ルドラ：後日、マトシャが完治してから、一緒に釣りに出かけたんだけど。
+　　　：最近、文鳥を飼い始めたらしくて。一緒に連れてきたんだわ。
+　　　：そしたら、ピーチクパーチクうるさいわ、俺のことをつつくわで大変で。
+　　　：マトシャのヤツも止めようとはするんだけど、なんというか・・、
+　　　：無理にやめさせようとは、しないんだよな。
+ヒカリ：すっかり可愛がってる様子だな？
+ルドラ：そうなんだよ。
+　　　：マトシャのヤツも、いつも以上に穏やかな顔つきでさあ。
+ヒカリ：何だよ、良い事なんじゃねえのか・・？
+ルドラ：おう。確かに、それ自体はいい事なんだけど。。
+　　　：・・でも・・何か、、
+　　　：その日から、マトシャの様子がおかしくなっちまったようで・・
+ヒカリ：というのは？
+♪♪【神子の微睡み】
+ルドラ：・・その日は、アロアロ島の近海で釣りをしてたんだけどさ、
+　　　：釣った魚をデミールの遺烈郷に持ってくるよう、ニッダーナさんから言われてたんだよ。
+ヒカリ：へぇ。
+ルドラ：んで、俺の竿に大物がかかって。
+ヒカリ：おぉ。
+♪♪【混沌の渦動】
+ルドラ：俺は大物を引き寄せるのに必死だから、
+　　　：目の前まで引き寄せたら、マトシャにタモ(網)ですくってもらうことにしたんだよ。
+ヒカリ：はいはい。
+ルドラ：そしたらマトシャのヤツ、
+　　　：『ビッグフィッシュだす・・！』
+　　　：『ビッグフィッシュが、でっかいだすぅうう！！！』
+　　　：とかわめいて、すんげえ興奮してたんだけど。
+　　　：魚をすくい上げた途端に、
+　　　：『・・キャッチアンドリリースだす』
+　　　：とか言い放って、その場で逃がしやがったんだよ・・
+ヒカリ：おいいいいいいいいいいい
+ルドラ：俺、もう焦っちゃって。
+　　　：「何で逃がしたんだよ！？ニッダーナさんからも頼まれてただろ！？」
+　　　：って、思わず言ったんだわ。
+ヒカリ：そらぁ、そう言うわな・・。
+♪♪【神子の微睡み】
+ルドラ：そしたらマトシャのヤツ、妙ぉ～に微笑みながら、
+　　　：『殺生はいけないだす』・・とか言い始めて。。
+　　　：鳥は俺のことをつついてくるし。
+ヒカリ：お、おう。
+ルドラ：でも心なしかマトシャから、うっすら後光が差しているようにも見えて。
+　　　：・・だから俺も、それ以上は強く言えなかったんだけど。。
+　　　：鳥は俺のことをつついてくるし。
+ヒカリ：はは～ん、
+　　　：お前に先に大物を釣られて、悔しかったんじゃ・・？
+　　　：あと、ニッダーナさんにも「自分が釣った魚を渡して、良い恰好がしたかった」・・とか？
+ルドラ：そうそう。普通のヤツだったら、そうやって疑いたくなるじゃん？
+　　　：でも、あのお人よしのマトシャだぜ？？
+ヒカリ：う～ん、たしかになぁ。マトシャに限ってそんなことは・・
+ルドラ：鳥は俺のことをつついてくるし。
+ヒカリ：さっきから、どんだけつつかれてんだよ。
+ルドラ：マトシャがそんな感じだったから、もう納竿しようって言ったわけ。
+ヒカリ：釣りをやめるってことだな？
+ルドラ：そうそう。
+　　　：そしたらマトシャのヤツ、『水脈を感じるだす...』とか急に言い始めて。
+　　　：『太公望のオラの感が告げるんだす・・・』
+　　　：『幻海流が・・・近いだす！(｀･ω･´)b』とか言うんだよ。
+ヒカリ：マトシャって太公望なの？
+ルドラ：自称な。
+　　　：いつもそう言って、釣れるまで粘るんだよ。
+ヒカリ：自分で逃がしておいて、意味がわからんな・・
+ルドラ：んで、『カモメぇ～が飛ん～だぁ～～だす♪』とか歌い始めて。
+ヒカリ：たしか、幻海流はイルカの群れじゃなかったか？
+ルドラ：そうそう。
+　　　：なんかもう、色々残念でよ。
+　　　：案の定、その日はマアサ・・じゃなくてマトシャも俺も、逃がした魚以外には釣れなかったわけ。
+　　　：んで、帰港したらあいつ、、
+　　　：黙って「スニーク」炊いて、とんずらこきやがって。。
+　　　：しょうがねえから、俺ひとりで報告に行ったんだわ。
+ヒカリ：ニッダーナさんには、何て言い訳したんだ？
+ルドラ：「良い当たりはあったんですが、残念ながら。でも鳥にはツキがありました。」
+　　　：「ツキというか、ほとんどツツキでした。吉兆です。また来週リベンジさせてください。」
+　　　：・・ってなもんよ。
+　　　：ニッダーナさんも、微妙ぉ～な顔してたわ。
+ヒカリ：お前も色々大変だったな(笑
+　　　：・・ところで、マトシャは一体どうしたっていうんだ？
+ルドラ：それが、何であんなことをしちまったのか、俺にもわからないんだよ。
+ヒカリ：うーん、、
+ルドラ：心配だから、あいつの家の前に、ポーションを置いといてやったんだけどよ。
+ヒカリ：おお。そうか。
+♪♪【日溜り】
+◇5
+ルドラ：んで、その翌日、マトシャがこの店にやって来てさ。
+　　　：釣りの件を反省したのか、しょんぼりミニマムになっててよ。
+ヒカリ：ちょっと待て、、反省するとミニマムになるだなんて、初めて聞いたぞ。
+ルドラ：あぁ、なんとなく、そう見えたんだよ。
+　　　：んで、「ジンガ食うか？」って聞いたら『いらないだす』って言われて。
+ヒカリ：断られてんじゃねえかよ。
+ルドラ：俺と向かい合って話すのも、気まずいかな？と思ってさ。
+　　　：いつもみたいに、あいつに施術しながら話すことにしたんだよ。
+ヒカリ：・・ん？アルカソーダラ族に毛なんて生えてねえだろ？
+ルドラ：そう思うじゃん？
+　　　：でも実は、全身にまばらに生えていて、
+　　　：特に腰や背中には、いくつか太い毛が生えてるんだよ。
+　　　：アジアゾウも同じらしいな。
+ヒカリ：へぇ～～～、まじか。
+ルドラ：グラフィックスアップデートしたら、お前にもマトシャのお毛毛が見えるよ。
+ヒカリ：いや、見たくはないわ！雑な嘘をつくなッ！
+　　　：あと「マトシャのお毛毛」はやめろっ。。
+ルドラ：そんで、毛が少し伸びてくると、服にひっかかるらしくって。
+　　　：いつも俺が特注のハサミで、バッサり切り落としてやってるんだわ。
+　　　：んで、その最中にあいつが、小声で『ごめんだす』って言うから、「もういいって」って感じで。
+ヒカリ：おー、そっかそっか。
+ルドラ：で、カットが終わると、タワシでブラッシングしてやるんだけど。
+　　　：ごしごし擦ってやると、「気持ちいいだすぅ～」って目を細めるんだよ。
+　　　：面白いだろ？
+ヒカリ：ちょっとカワイイかも。
+ルドラ：でも、少し力が入り過ぎちゃう時とかあるんだけどさ、
+　　　：あいつ、「全然大丈夫だす～。むしろ、少し強めの方が気持ちいいだす～」
+　　　：って言ってくれるから、すごい助かるのよ。
+　　　：逆に、ヒッポカートの舎弟どもは痛がりだから、結構気ぃ遣うんだわ。
+ヒカリ：あぁ、最近、弁当販売を始めた連中ね。
+ルドラ：そうそう。
+　　　：・・あぁ、そういえばあの舎弟ども、、
+　　　：この前、「ジンガビリヤニを炊く炊飯器を探してるんだ」って相談してきてよ。
+　　　：んで俺が、タイガーの炊飯器を勧めてやったらさ、
+　　　：「何で象印じゃないんだ」って怒りはじめたんだよ。
+ヒカリ：言いがかり過ぎるわ。。
+ルドラ：参っちまうだろ？
+　　　：いちいち揉め事を起こす気質も、未だに変わってねえんだよな。
+　　　：まあ一応、頑張って変わろうとはしてんだろうけどよお。
+　　　：ーーっと、悪りいな。つい仕事の愚痴になっちまったわ。
+ヒカリ：いいって、いいって。
+ルドラ：んで、いつもマトシャの施術中は、あいつと天候や漁の仕掛けの話をするんだけど。
+　　　：その日はなぜか、俺に新聞を取るように勧めてきてさ。
+ヒカリ：新聞ねえ。
+ルドラ：「お前、新聞なんて取ってたか？」って聞いたら、
+　　　：『オラも今日、始めたんだす～』とか言うんだよ。
+ヒカリ：んー、経済紙のミスリルアイとか？
+ルドラ：いやそれが、知らない新聞で。名前は忘れちまったんだけど。。
+ヒカリ：いいんじゃねえの？新聞取るくらい。
+　　　：この理髪店に置いてやれよ。
+ルドラ：おう、俺もそう思ったよ。
+　　　：でもさ、続けて『今度の選挙、〇×党に投票して欲しいんだす』
+　　　：とか言うんだよ。
+ヒカリ：お、おう？
+ルドラ：お前もおかしいと思うだろ？
+ヒカリ：・・ああ。ちょっと、あいつらしくないかもな。
+ルドラ：そんで、その日はそんな感じだったから、ちょっと心配でさ。
+　　　：ポーション渡して、早く帰したんだわ。
+ヒカリ：おお。そうか。
+♪♪【無音】
+◇6
+ルドラ：それでも心配だったから、昨晩マトシャの様子を見に行ったんだけどさ。
+　　　：あいつの家に入ったら、部屋が真っ暗でよ。
+　　　：ろうそくを1本、灯しているだけだったんだわ。
+ヒカリ：お・・おう。
+ルドラ：マトシャのヤツ、なんかブツブツ言ってたんだけど、よく聞き取れなくって。
+　　　：心配だったから、とりあえずポーション飲ませたんだわ。
+ヒカリ：・・・・
+ルドラ：そしたら今度は急に、壁に向かって土下座し始めてよ。
+ヒカリ：ちょっと、、
+ルドラ：心配だったから、またポーション飲ませたんだわ。
+ヒカリ：ちょっっと！いいか？
+ルドラ：そしたら、・・ん？
+　　　：どうした？？
+ヒカリ：マトシャの高熱は、もう治ってるんだよな・・？
+ルドラ：おう。とっくに治ってるよ。
+ヒカリ：じゃあ何で、お前はまだマトシャにポーションを飲ませてんだよ？
+ルドラ：そりゃあ、ポーション飲んだら元気になるからだろぉ。
+ヒカリ：・・わかった。
+　　　：いや、分かってはいないけど、いったん分かった。
+ルドラ：何言ってんだ、お前？？
+ヒカリ：・・お前がマトシャに飲ませていたポーションってのは、解熱用だったよな？
+ルドラ：ああ。なんだ、疑ってんのか？
+　　　：解熱用というか何というか・・、
+　　　：とにかく栄養とか、エーテルとかいろいろ良い物が入ってるらしいぞ。
+　　　：・・まぁ、詳しくは知らんが。
+ヒカリ：それをお前は、アルキミヤ製薬堂で買った・・？
+ルドラ：ああ。アルキミヤ製薬堂の裏手にいた、黒いローブの男から買ったよ。
+　　　：なんでも、市販より安く買えるんだよ。
+　　　：俺も、そんなに稼ぎが良いわけじゃあないからな。
+　　　：お前も、ジェネリックって聞いたことあるだろ？
+ヒカリ：ぁ、ああ。
+ルドラ：今、どこも品薄らしいから、多めに買っといたんだよ。
+　　　：ほら、これ。・・これが最後の1本だけど。
+ヒカリ：・・・・・！！！！
+　　　：なあ。これ、「改宗用ポーション」と書いてあるぞ。
+♪♪【戦闘シーン1.X】
+ルドラ：・・ぅん？かいしゅうよぉ？
+　　　：改宗ってことは・・・？
+ヒカリ：おう。
+ルドラ：今まで信じてきた宗教を、
+ヒカリ：おう。
+ルドラ：このポーションで、無理やり変えるってことか？！
+ヒカリ：おうおう。
+　　　：文字通りの意味なら、そういうこと、だな。
+ルドラ：オイオイ、勘弁してくれよぉ・・・
+ヒカリ：わざわざ第四星暦末期の古文字で書いてあるな。
+ルドラ：第四って・・・今は第七星暦だぞぉ！？
+　　　：そんな古い文字で書かれていても、読めるわけないだろ！？
+ヒカリ：・・確かに、俺も冒険者をやっていなかったら、読めなかっただろうけれども。
+　　　：け・れ・ど・も！！！
+ルドラ：くそぉ～～～～～、、
+　　　：俺は、騙されて買った変なポーションを、マトシャに飲ませちまってたんだ・・
+　　　：あいつの様子がおかしくなっちまったのは、俺のせいだったんだな・・
+ヒカリ：そういうことだな。
+ルドラ：冷静に言うなよ！！
+　　　：・・俺はどうすればいい！？
+ヒカリ：その最後のポーションを持って、これからマトシャん家にいくぞ！
+ルドラ：お、おう！！
+　　　：・・アキャーリだ！
+　　　：マトシャはアキャーリに住んでいる！
+ヒカリ：よし。たしか、海岸沿いの集落だったな？
+　　　：俺は、ミラージュドレッサーからガジャヘッドを引っ張り出してきて、
+　　　：それでマヌシャ神のふりをするから。
+　　　：お前は念のため、メーガス三姉妹のミニオンを持って来い！
+ルドラ：わかった！
+　　　：今からゾットの塔を周回してくる！
+ヒカリ：マケボだッ！！マケボで買ってこいッ！！
+　　　：急げッ！！！
+ルドラ：わ、わかった！マケボだな？！
+　　　：・・あ、そうだ。
+　　　：お前も鳥には気をつけろ！
+♪♪【無音】
+            </textarea>
         </figure>
     </section>
     <input type="button" value="マクロ化を実行"  id="run">
@@ -627,8 +1075,189 @@ display: inline-block;
     /* マクロ化 */
     let run = document.getElementById("run");
     run.addEventListener("click", function(e){
-        //console.log("test");
 
+        //(入力判定)txtareaから入力した台本の文字列の文字数を取得
+        let t = document.getElementById('daihon').value.length;
+
+        if(t > 20){
+
+            const input = document.getElementById('daihon');            //input
+            const output = document.getElementById('result-macros');     //output
+            let result = input.value;                                        //result
+
+            // バリデーション
+                //1.空白改行
+                const hasDoubleNewlines = /\n\n/m.test(result);
+                if(hasDoubleNewlines){alert("空白の改行が台本に存在します。\n台本を修正してください。");return;}
+
+                //2."◇"の直後にスペースや改行が来ていないか
+                const next = /^◇( |　|\n).*/m.test(result);
+                if(hasDoubleNewlines){alert("◇の次に空白や改行が含まれています。\n台本を修正してください。");return;}
+
+                //3.章節の次行がセリフになっているか
+                const instructions = /^◇.*\n※/m.test(result);
+                const bgm = /^◇.*\n♪/m.test(result);
+                const space = /^◇.*\n( |　)+/m.test(result);
+                if(instructions || bgm || space){alert("◇N(章節)の次の行に指示書きやBGMが書かれています。\n章節の次の行にセリフがくるように修正してください。\n◇Nの次の行の行頭にスペースが無いか？についても、確認してください。");return;}
+
+                //4.登場人物名が重複していた場合、アラートを表示し終了。
+                const characterNameInputs = document.querySelectorAll('.character-name'); // HTMLからinput要素を取得
+                const characterNames = Array.from(characterNameInputs).map(input => input.value);
+                const nonEmptyCharacterNames = characterNames.filter(name => name.trim() !== '');
+                const hasDuplicates = new Set(nonEmptyCharacterNames).size !== nonEmptyCharacterNames.length;
+                if (hasDuplicates) {alert('登場人物名が重複しています。');return;}
+                
+            //-------------------------------
+            
+
+            // ◇Nの"N"が全角だった場合に半角に置換
+                const lines = result.split('\n');   // 行ごとに分割
+                const pattern = /^◇([０-９]+)$/;   // 正規表現パターン："◇"の直後に全角数字がある行
+                const convertedLines = [];         // 変換後の文字列を格納する配列
+
+                // 各行を配列で処理
+                for (const line of lines) {
+                    const match = line.match(pattern);
+                    if (match) {
+                        // 全角数字を半角数字に変換
+                        const fullwidthNumber = match[1];
+                        const halfwidthNumber = fullwidthNumber.replace(/[０-９]/g, (char) => {
+                            return String.fromCharCode(char.charCodeAt(0) - 0xfee0);
+                        });
+                        convertedLines.push(`◇${halfwidthNumber}`);
+                    } else {
+                        convertedLines.push(line);
+                    }
+                }
+                result = convertedLines.join('\n');   // 変換後の文字列を結合して表示
+            //-------------------------------
+
+            // 空白3つや:が半角だった場合、全角に置換
+                result = result.replace(/   /gm,"　　　")
+                .replace(/:/gm,"：");
+
+            //-------------------------------
+            
+            
+                //登場人物名を取得し配列に格納
+                const charaNameArray = []; // 配列にプッシュするための空の配列
+                characterNameInputs.forEach((input) => {
+                    const inputValue = input.value.trim();
+                    if (inputValue.length === 2){               //キャラ名が2文字の場合
+                        charaNameArray.push(`${inputValue}　：`);
+                    }else if(inputValue.length === 3){          //キャラ名が3文字の場合
+                        charaNameArray.push(`${inputValue}：`);
+                    }
+                });
+                if(charaNameArray == ""){alert("登場人物名を正しく入力してください。");return;} //登場人物名が入力されていなかったり、1文字だった場合に処理を抜ける。
+
+                //「人物名：」の行頭に改行を挿入
+                for (const t of charaNameArray) {
+                    result = result.replace(new RegExp(t, "g"), `\n${t}`);
+                }
+
+                //ラジオボタンから「3桁」or「4桁」の情報を整数で取得
+                let elements = document.getElementsByName('digit');
+                let len = elements.length;
+                let checkValue = '';
+                for (let p = 0; p < len; p++) {
+                    if (elements.item(p).checked) {
+                        checkValue = elements.item(p).value;
+                    }
+                }
+
+                //◇の次の数字を取得しつつ、空白の改行にマクロ連番を振る
+                const lines2 = result.split('\n');  // 行ごとに分割
+                const maximumLine = lines2.length   // 行数
+                const pattern2 = /^◇(\d)$/gm;      // 正規表現パターン："◇"の直後に数字がある行
+                const pattern3 = /^$/gm;            // 空白の改行
+                const convertedLines2 = [];         // 変換後の文字列を格納する配列
+
+                let u;
+                for (let i = 0; i < maximumLine; i++) {
+                    if (lines2[i].match(pattern2)) {
+                        u = 0;
+                        if(checkValue == 3){
+                            u = Number(lines2[i].charAt(1)) * 100
+                        }else if(checkValue == 4){
+                            u = Number(lines2[i].charAt(1)) * 1000
+                        }
+                    }else if(lines2[i].match(pattern3)){
+                        let z = lines2[i+1].slice(0,8);     //次のセリフを先頭から8文字取得
+                        convertedLines2.push(u + " " + z);  //連番を振る
+                        u++;
+                    } else {
+                        convertedLines2.push(lines2[i]);
+                    }
+                }
+                result = convertedLines2.join('\n');   // 変換後の文字列を結合して表示
+
+
+                //上記までで、フォーマットされたとみなし、いよいよマクロに加工していく
+                result = result.replace(/^(\d{3,4})/gm,"\n" + "$1")             //マクロ番号の直前に改行を挿入
+                .replace(/(\n)\n(\d{3,4}.*$)/gm,"$1"+"/cwl "+"$2"+"\n"+"$2");    //セリフ最終行に、次のセリフを挿入
+                
+                for (const t of charaNameArray) {                               //「人物名：」の前に/yを挿入
+                    result = result.replace(new RegExp("^" + t, "gm"), `/y ${t}`);
+                }
+
+                result = result.replace(/^(　　　：)/gm,"/y " + "$1")             //セリフ2行目以降にも行頭に/yを挿入
+                .replace(/^(\d{3,4}.*$)/gm,"\n\n"+"$1")                        //マクロ番号の直前に改行を挿入
+                .replace(/^♪/gm,"/cwl ♪")
+                .replace(/^[※]/gm,"/cwl ")
+                .replace(/(^\/cwl.*$)(?!\n\n)/gm,"$1" + " <wait\.1>");              //セリフ最終行の次のセリフ以外の/cwlの末尾に<wait.1>を挿入
+
+                //一行ずつ走査し、/yセリフ行の場合、文字数をカウントして<wait.N>を挿入
+                const lines3 = result.split('\n');   // 行ごとに分割
+                const maximumLine2 = lines3.length   // 行数
+                const pattern4 = /^(\/y.*$)/gm;      // 正規表現パターン：行頭が/yで始まる行
+                const convertedLines3 = [];          // 変換後の文字列を格納する配列
+
+                for (let i = 0; i < maximumLine2; i++) {
+                    if (lines3[i].match(pattern4)) {
+                        let length = lines3[i].length;
+                        var z;
+                        if(length < 12){
+                            z = lines3[i] + " <wait.2>";        // ～4文字なら <wait.2>
+                        }
+                        else if(length >= 12 && length < 19){   // 5～11文字なら <wait.3>
+                            z = lines3[i] + " <wait.3>";
+                        }
+                        else if(length >= 19 && length < 27){   // 12～19文字なら <wait.4>
+                            z = lines3[i] + " <wait.4>";
+                        }
+                        else if(length >= 27){                  // 20字以上で <wait.5>
+                            z = lines3[i] + " <wait.5>";
+                        }
+                        convertedLines3.push(z);
+                    } else {
+                        convertedLines3.push(lines3[i]);
+                    }
+                }
+                result = convertedLines3.join('\n');   // 変換後の文字列を結合して表示
+
+                result = result.replace(/^(\/y.*<wait\.)\d(>$\n\/cwl)/gm,"$1" + "1" + "$2");             // /y行のうち、次行が/cwlのものだけwaitを1に変更
+
+            
+            output.value = result;                    //完成マクロのtextareaに反映
+            alert("マクロが出力されました。\nご確認ください。");
+        }else{
+            alert("台本の文字数が少ないようです。\nもう一度、お手元の台本を貼り付けてください。");
+        }
     });
+
+    /*コピーボタン*/
+
+        
+// 例: ボタンをクリックしたときにテキストをクリップボードにコピー
+const copyButton = document.getElementById("copy");
+copyButton.addEventListener("click", (e) => {
+    const textarea = document.getElementById("result-macros");
+    textarea.select();              // テキストを選択
+    document.execCommand("copy"); // クリップボードにコピー
+    alert("マクロをコピーしました。");
+});
+
+
 </script>
 </html>
