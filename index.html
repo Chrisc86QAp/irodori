@@ -7,6 +7,12 @@
 <meta name="format-detection" content="address=no,email=no">
 <meta name="skype_toolbar" content="skype_toolbar_parser_compatible">
 <style>
+html{
+    background:#fbfbfb;
+    background-image: radial-gradient(#fffc995e 2px, transparent 2px), radial-gradient(#fffc995e 2px, #fff 2px);
+    background-size: 50px 50px;
+    background-position: 0 0,25px 25px;
+}
 html,textarea {
 	font-size:15px;
     color: #373737;
@@ -15,15 +21,13 @@ html,textarea {
 figcaption,label,legend{
     font-size:1.2rem;
 }
-nav#gnavi{
-    margin: 3rem auto;
-}
 h1{
     font-size: 3rem;
     position: relative;
     padding: 1rem 2rem calc(1rem + 10px);
     background-color:#fffc99;
     margin-left: 1rem !important;
+    text-align: center;
 }
 h1:before {
     position: absolute;
@@ -96,7 +100,7 @@ input{
 input[type="button"]{
     font-size: 2rem;
     padding: 0 2rem;
-    height: 50px;
+    height: 100%;
     color: #fff;
     background: #116152;
     border: none;
@@ -104,6 +108,9 @@ input[type="button"]{
     transition: all 0.15s linear;
     margin: 0 auto;
     display: block;
+    white-space: wrap;
+    line-height: 130%;
+    min-height: 50px;
 }
 input[type="button"]:hover{
     transition: all 0.15s linear;
@@ -134,9 +141,9 @@ input[type="radio"]{
 }
 #sample textarea{
     width:100%;
-    height:266px;
+    height:333px;
 }
-#daihon,#result-macros{
+#kyakuhon,#result-macros{
     width: 100%;
     height:400px;
 }
@@ -222,7 +229,7 @@ footer{
   margin-left: 30px;
   padding: 15px 10px 15px 10px;
   vertical-align: middle;
-  background: #efefef;
+  background: #e9e9e9;
   box-sizing: border-box;
   border-radius: 6px;
 }
@@ -303,7 +310,7 @@ display: inline-block;
   max-width: 100%;
   color: #555;
   font-size: 16px;
-  background: #e0edff;
+  background: #c8d8ed;
   border-radius: 15px;
   bottom: 5px;
   left: 12px;
@@ -319,7 +326,7 @@ display: inline-block;
     border-right-width: 7px;
     border-right-style: solid;
     border-right-color: transparent;
-  border-right: 15px solid #e0edff;
+  border-right: 15px solid #c8d8ed;
 }
 .balloon1 p {
   margin: 0;
@@ -370,7 +377,7 @@ display: inline-block;
         left:-110px;
     }
     h2{
-        padding: .8rem 2rem 1.5rem 94px;
+        padding: .8rem 2rem 1.5rem 100px;
         font-size: 1.6rem;
     }
 }
@@ -389,27 +396,129 @@ ul.annotation > li::before {
   position: absolute;
   left: -17px;
 }
+#macro_count{
+    list-style: none;
+}
+#macro_per_character{
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    background: #fff;
+    padding: 1rem;
+    box-shadow: 2px -4px 8px 3px #0000002b;
+    border-radius: 10px 10px 0 0;
+    z-index: 100;
+    animation: slidein 0.8s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+@keyframes slidein{
+	from {
+	  transform: translateY(120px);
+      opacity: 0;
+	}
+	to {
+	  transform: translateY(0);
+      opacity: 1;
+	}
+}
+#macro_per_character ul{
+    padding:0;
+}
+#macro_per_character h3{
+    font-size:1rem;
+    color: #fff;
+    padding: .2rem .8rem;
+    background: #de1720;
+    display: inline-block;
+    border-radius: 8px;
+}
+.chidden{
+    display: none;
+}
+.flex-schedule-disabled p.sch_title{
+color: #7f7f7f;
+}
+.flex-schedule .sch_box.orng{
+    background:rgb(255, 215, 204);
+}
+a.btn-flat {
+  overflow: hidden;
+  padding: 1.5rem 6rem;
+  color: #fff;
+  border-radius: 0;
+  background: #000;
+}
 
+a.btn-flat span {
+  position: relative;
+}
+
+a.btn-flat:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 100px;
+  content: '';
+  -webkit-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+  -webkit-transform: translateX(-80%) translateY(-25px);
+  transform: translateX(-80%) translateY(-25px);
+  border-radius: 50%;
+  background: #72deff;
+}
+
+a.btn-flat:hover:before {
+  width: 400px;
+  height: 400px;
+  -webkit-transform: translateX(-1%) translateY(-175px);
+  transform: translateX(-1%) translateY(-175px);
+}
+#gnavi ul{
+    list-style: none;
+}
+#gnavi ul li a span{
+    color: #fff;
+    -webkit-transition: all 0.7s;
+    transition: all 0.7s;
+}
+.btn,
+a.btn,
+button.btn {
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.5;
+  position: relative;
+  display: inline-block;
+  padding: 1rem 4rem;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  color: #212529;
+  border-radius: 0.5rem;
+}
+
+ #gnavi ul li a.btn:hover span{
+    color:#161616;
+    -webkit-transition: all 0.7s;
+    transition: all 0.7s;  
+}
 </style>
-
-<header id="site-header">
-    <div id="gheader">
-        <div class="humberger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
+<h1 class="mb5 mt5">マクロ化ツール</h1>
+<header id="site-header" class="mb5">
     </div>
     <nav id="gnavi">
         <ul>
             <li>
-                <a href="/daihon-to-macro/">
-                <span>台本からマクロに加工</span>
-                </a>
-            </li>
-            <li>
-                <a href="/separate/">
-                <span>キャラ別に分ける</span>
+                <a href="separate.html" class="btn btn-flat">
+                <span>キャラ別に分ける ></span>
                 </a>
             </li>
         </ul>
@@ -417,15 +526,14 @@ ul.annotation > li::before {
 </header>
 
 <main id="home" class="mb8">
-    <h1 class="mb5">マクロ化ツール</h1>
     <h2 class="mb3"><span>01</span>はじめに</h2>
-    <p class="mb3">このページでは、完成した台本を「エモートの入力」前までマクロ化していきます。</p>
+    <p class="mb3">このページでは、完成した脚本を「エモートの入力」前までマクロ化していきます。</p>
 
     <ul class="flex-schedule-disabled">
         <li>
             <div class="area">
             <div class="sch_box">
-                <p class="sch_title">台本完成</p>
+                <p class="sch_title">脚本完成</p>
             </div>
             </div>
         </li>
@@ -444,29 +552,29 @@ ul.annotation > li::before {
         </li> -->
         <li>
             <div class="area">
-              <div class="sch_box">
-                <span class="term">※ここから</span><p class="sch_title">マクロ番号(連番)を振る</p>
+              <div class="sch_box orng">
+                <!--<span class="term">※ここから</span>--><p class="sch_title">マクロ番号(連番)を振る</p>
               </div>
             </div>
           </li>
         <li>
           <div class="area">
-            <div class="sch_box">
+            <div class="sch_box orng">
               <p class="sch_title">マクロタイトル(セリフの出だし)を入力</p>
             </div>
           </div>
         </li>
         <li>
           <div class="area">
-            <div class="sch_box">
+            <div class="sch_box orng">
               <p class="sch_title">/y や /cwl の入力</p>
             </div>
           </div>
         </li>
         <li>
           <div class="area">
-            <div class="sch_box">
-              <p class="sch_title">&lt;wait.N&gt;の入力</p><span class="term">※ここまで</span>
+            <div class="sch_box orng">
+              <p class="sch_title">&lt;wait.N&gt;の入力</p><!--<span class="term">※ここまで</span>-->
             </div>
           </div>
         </li>
@@ -489,9 +597,9 @@ ul.annotation > li::before {
         </li>
       </ul>
 
-    <p class="mb5 mt5">完成した台本が↓の「台本サンプル」のような形式になっているかを、必ずご確認ください。</p>
+    <p class="mb5 mt5">完成した脚本が↓の「脚本サンプル」のような形式になっているかを、必ずご確認ください。</p>
     <figure id="sample" class="mb3">
-        <figcaption>台本サンプル</figcaption>
+        <figcaption>脚本サンプル</figcaption>
         <textarea name="textarea">
 ※■■■■■　第1章　■■■■■
 ♪音響【日溜り】
@@ -512,27 +620,27 @@ ul.annotation > li::before {
 　　　：・・・ラッシーでも飲むか？
 ヒカリ：いや、いらねえわ。</textarea>
     </figure>
-    <h3>もう一度、台本をご確認ください</h3>
+    <h3>もう一度、脚本をご確認ください</h3>
     <div class="caution mb8">
         <div class="caution-inner">
             <div class="intro-text">
                     <ul>
-                        <li>章節は「◇N」形式で記述。Nは数字1字を表す。(「◇1」は1章を意味する。)</li>
-                        <li class="note"><strong>章節「◇N」の次の行には、必ずセリフとなるようにする。(指示書きにしないこと。)</strong></li>
+                        <li class="note"><strong>章節は「◇N」形式で記述。Nは数字1字を表す。</strong>(「◇1」は1章を意味する。)</li>
                         <li>妖精さんパートを作成する時は、OPなら先頭行を「◇0」とし、EDなら「◇劇の終章+1」とする。</li>
-                        <li>指示書きは文頭に「※」を必ず含ませ、「※指示書き」の形式にする。</li>
-                        <li>「※」を文字として残したい場合は、「※※」と書く。</li>
                         <li>BGMは文頭に「♪」を必ず含ませ、「♪BGM」の形式にする。</li>
+                        <li>指示書きは文頭に「※」を必ず含ませ、「※指示書き」の形式にする。</li>
+                        <li><strong>先頭の「※」を文字として残したい場合は、「※※」と書く。</strong></li>
+                        <li>「指示書き」とは？ → 暗転or明転指示や、「ヒトシ、下手から登場」、ミラプリ変更、等。</li>
                         <li>キャラ名が明かされる前の？？？は、この段階ではキャラ名を入力し、完成した後に手動で修正する。</li>
                     </ul>
             </div>
         </div>
     </div>
     
-    <h2 class="mb3"><span>02</span>台本をマクロ化します</h2>
+    <h2 class="mb3"><span>02</span>キャラ名と脚本を入力します</h2>
 
     <fieldset>
-        <legend>台本番号の桁数</legend>
+        <legend>脚本番号の桁数</legend>
         <div>
             <input type="radio" id="three-digit" name="digit" value="3" checked />
             <label for="three-digit">3桁 <span></span></label>
@@ -549,22 +657,16 @@ ul.annotation > li::before {
     </ul>
 
     <fieldset class="mb5">
-        <legend>登場人物の入力</legend>
+        <legend>登場人物名の入力</legend>
         <div class="mb3">
             <label for="chara01">登場人物 1</label>
-            <input size="6" maxlength="3" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara01" id="chara01" class="character-name" value="ルドラ">
-            <ul class="annotation">
-                <li>サンプルで「ルドラ」を入力しております</li>
-            </ul>
+            <input size="6" maxlength="3" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara01" id="chara01" class="character-name">
         </div>
 
         <div class="second_chara">
             <div class="mb3">
-                <label for="chara02">登場人物 2 (サンプルで「ヒカリ」を入力しています)</label>
-                <input size="6" maxlength="3" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara02" id="chara02" class="character-name" value="ヒカリ">
-                <ul class="annotation">
-                    <li>サンプルで「ヒカリ」を入力しております</li>
-                </ul>
+                <label for="chara02">登場人物 2</label>
+                <input size="6" maxlength="3" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara02" id="chara02" class="character-name">
             </div>
             <div class="add_chara mb3">
                 <div class="c-markup_view">
@@ -631,192 +733,13 @@ ul.annotation > li::before {
         </div>
     </fieldset>
 
-    <section id="input-daihon" class="mb5">
+    <section id="input-kyakuhon" class="mb5">
         <figure>
-            <figcaption>台本</figcaption>
-            <ul class="annotation">
-                <li>マクロ化を試すため、サンプルとして「サベネアの理髪師」が入力されています。</li>
-            </ul>
-            <textarea name="textarea" placeholder="ここに台本を貼り付けます..." id="daihon">
-♪♪【桟道を上りて】
-◇1
-ルドラ：俺の名前はルドラ。
-　　　：このサベネア島で理髪店を営んでいる。
-♪♪【神々の訓え】
-※〇 明転[照度5] 〇
-※● [OFF]スポットライト ●
-ルドラ：・・・はぁ～～。。
-　　　：暇だ・・。今日はお客さん来ねえなあ～・・
-※ヒカリ登場
-ヒカリ：おぃーーす、やってるぅ？
-ルドラ：ぁ、いらっしゃいませ～...お！
-　　　：なんだ、ヒカリじゃん。
-ヒカリ：おう、ルドラ。久しぶり！
-ルドラ：久々だなあ～～。
-　　　：まあ、座ってくれよ！・・ラッシーでも飲むか？
-ヒカリ：いや、いらねえわ。
-　　　：いきなりぼったくろうとするんじゃねえよ。
-　　　：・・ところで、突然来ちゃって悪いな。
-※ヒカリ、移動開始し椅子に座る。→ 歩行モードをOFF
-ルドラ：いいんだよ。このサベネア島では、予約する人なんかいないって。
-　　　：・・どうする？毛先を整える感じでいいか？
-ヒカリ：うん。たのむよ。
-ルドラ：今日は何でまた、この島に来たんだ？
-ヒカリ：メーガス三姉妹のミニオンが欲しくてなぁ。
-　　　：ゾットの塔を周回してるんだよ。
-　　　：まあ、まだドロップすらしてないんだけどな～。
-ルドラ：周回って。。マケボで安く買えるだろ？
-ヒカリ：それじゃあ味気ないんだよ。
-　　　：ま、地に足をつけて商売してるお前には、分からないかもしれないけどさ。
-ルドラ：へぇ、ロマンかい。
-　　　：まあ俺も、趣味で釣りやってるからさ。少しだけ分かる気がするよ。
-　　　：・・あ、そうだ。
-　　　：昨日釣った「ジンガ」があるんだけど、食うか？
-ヒカリ：いや、いいわ。さっきから田舎のおばあちゃんか、お前は。
-　　　：いーよ、気を遣わないで。ありがたいけどよ！
-　　　：つーか、ジンガって何だっけ・・？
-ルドラ：エビだ。エビ。
-　　　：特にアルカソーダラ族はコレに目がなくてよ。
-　　　：「エビで象を釣る」ってコトワザがあるくらいなんだわ。
-ヒカリ：何だそれ。聞いたことねえよ。
-ルドラ：略して「エビゾウ」って言うの。
-ヒカリ：何かムズムズするな、その響き。。
-ルドラ：マトシャん家の前の浜で釣れるんだわ。
-ヒカリ：へぇ～～。
-　　　：じゃあ、マトシャの好物でもあるのか？
-ルドラ：『う～ん、ジンガはあんまり食べないだす』って言ってたわ。
-ヒカリ：全然「エビゾウ」になってねぇじゃねえかよ！！
-ルドラ：まあ、家の前で釣れりゃあ、飽きるわなぁ。
-♪♪【日溜り】
-◇2
-ヒカリ：・・そういえば、マトシャのヤツは元気か？
-　　　：お前、仲良かったよな？
-ルドラ：おうおう。
-　　　：まあ、、元気ぃ～・・・というか。。
-　　　：うーん、、
-ヒカリ：何だ？歯切れが悪いな。
-ルドラ：実はこの前さ、
-　　　：マトシャのヤツ、高熱出しちまってよ。
-ヒカリ：おー、それはそれは、
-ルドラ：解熱用のポーションを、届けてやったのよ。
-ヒカリ：この辺だと、アルキミヤ製薬堂とかで買って？
-ルドラ：そうそう、そんな感じ。
-　　　：んで、マトシャん家いくじゃん。
-　　　：そしたらマトシャのヤツ、竿の手入れをしていたんだわ。
-ヒカリ：へぇ、仕事熱心だねえ。
-ルドラ：だから、すぐ横に寝かせて「このポーションを飲め」って手渡したんだけど。
-　　　：あいつ、ポーションの味が大っっ嫌いらしくて、飲もうとしなくって。
-ヒカリ：どうやってサベネア島を生き抜いてきたんだよ・・
-　　　：Lv.80以上のモンスターがバンバン出てくる島だぞ・・
-ルドラ：そこはほら、あいつも漁師じゃん？
-　　　：「スニーク」使うから、敵から襲われないんだわ。
-ヒカリ：マトシャにそんな能力がッ！？
-ルドラ：そんで、飲ませようと何とか説得したのよ。
-　　　：そしたら観念したのか、ポーションを片手に持って、こう言ったんだわ。
-　　　：『鼻から吸って・・・ｽﾞｽﾞーｯ』
-ヒカリ：お、えらい。
-ルドラ：『・・口から出すだす』
-ヒカリ：汚ねえな！！
-　　　：あと、語尾の「だす」はもう要らねえだろ・・
-ルドラ：それからマトシャのヤツ、『また夢になるといけないだす』とか、良く分からんことを言ってきて。
-ヒカリ：・・それは落語の落ちだな。
-ルドラ：あまりにも飲まねえもんだから、もう俺、嘘ついちゃってよ。
-　　　：数日分のポーションを持って行ってたから、
-　　　：「こっちのポーションは、ニッダーナさんがお前のために作ってくれた、特製品だぞ。」って。
-ヒカリ：いやいや、、そんなの、すぐバレるだろぉ。
-ルドラ：・・そう思うじゃん？
-　　　：あいつも初めは疑ってたんだけど、
-　　　：「じゃあ、ニッダーナさんに返してくるわ」って帰ろうとしたら、
-　　　：ポーションのカゴに釣り針をひょいと引っかけて、竿で引き寄せやがるんだわ。
-ヒカリ：マトシャにそんな能力がッ！？
-ルドラ：もう、すっかりその気になっちゃって。
-ヒカリ：マトシャさん、見透かされてますよ＾＾
-ルドラ：ポーションをガッシリ握りしめて、ものっスゴい勢いで、ゴックゴク飲み始めて。
-ヒカリ：おー、結果オーライ？
-ルドラ：キレイに飲み干して、こう言ったんだわ。
-　　　：『まずいだす、もう一杯』
-ヒカリ：やかましいわ。
-　　　：お前のリキャスト、バグってんぞ。
-◇3
-ルドラ：そんでよ、『オラが寝付くまで、話し相手になって欲しいだす』って言うんだよ。
-　　　：しょうがねえから、あいつが寝ている横に座ってさ。
-ヒカリ：どんな話したの？
-ルドラ：・・恋バナ。
-ヒカリ：修学旅行じゃねえよ！？
-♪♪【啓示 ～蛮神スサノオ討滅戦～】
-ルドラ：俺が「ニッダーナさんがお前のために作ってくれた」なんて嘘つくから、
-　　　：あいつのハートに火がついちまったみたいで。。
-　　　：『ニッダーナさんに告白する前に、練習させて欲しいだす』って、しつこくせがんできてよ。
-　　　：んで、俺がニッダーナさん役で、あいつの告白を聞いててやったんだけど。。
-ヒカリ：・・どんな告白だったんだ？
-ルドラ：『オ、オラ・・・』
-　　　：『オラのサブリガ、洗って欲しいだす！！！』
-ヒカリ：いや、お前が洗え！！！
-　　　：・・待て待て待て。いきなり同棲を求めている・・だとぉ？？
-　　　：まず、2人はまだ付き合ってもいないんだろ？
-ルドラ：ああ。色々ツッコミどころがあるとは思うが・・。。
-　　　：でも本人は、『どうだっただすか？』
-　　　：『オラ的には100点満点だったと思うんだすが・・・』って言うんだよ。
-ヒカリ：お前の自己採点、バグってんぞ。
-ルドラ：まあ、あいつのまっすぐなところが、良いところでもあるんだけどな。
-ヒカリ：いや、まっすぐ過ぎるわッ！
-ルドラ：で、俺が返答に困ってたら、『アドバイスが欲しいだす』って言うんだよ。
-　　　：なんでも来月、ニッダーナさんの誕生日らしくてよ。
-ヒカリ：おお。チャンスじゃねえか。
-ルドラ：とりあえず、当日は「誕生日おめでとさん！」と言えって。
-　　　：んで続けて、「オメーの人生、ザックザクに切り刻んでやんよ！」
-　　　：キィィイイルゥゥゥ　オア　ダイッ！
-♪♪【桟道を上りて】
-ヒカリ：怖い怖い怖い！お前の業界、怖い！！
-　　　：まだサブリガの方が良かったわ。。
-　　　：マトシャは何て・・？
-ルドラ：『う～ん、オラ的には今のは65点だすなあ・・』
-ヒカリ：馬鹿ヤロウ。もっと拒否しろぉ、、
-♪♪【日溜り】
-ルドラ：あとはまあ、とりあえず「一緒にジンガ釣りに行きませんか？」って誘ってみろって、言っておいたわ。
-ヒカリ：それは・・楽しいのか・・？
-ルドラ：釣ったジンガを調理してさ、一緒に食事できるだろ？
-ヒカリ：おぉ、確かにな。
-　　　：いいじゃねえか！
-ルドラ：でも、いきなり二人きりだと断られやすいからさ、
-　　　：俺や他の錬金術師も誘って、ビーチでBBQしろって。
-　　　：そしたら俺もアシスト出来るからよって。
-ヒカリ：おぉ・・！いいね！お前、天才か！
-ルドラ：俺のこと、フィガロと呼んでもいいぞ？
-ヒカリ：いや、ちょっと何言ってんのか分かんないわ。
-ルドラ：まあ、そんな調子で、恋バナで盛り上がってたらよお！
-　　　：あいつも、だんだん興奮してきてさ。
-　　　：熱もどんどん上がって、顔も真っっ赤になってきてよ。
-ヒカリ：おいおい、大丈夫か・・・
-ルドラ：そしたらあいつ、フラつきながら、氷枕を作り始めたんだわ。
-ヒカリ：うん？サベネア島は熱帯だろ？？
-　　　：氷なんて、どこにあるんだよ？
-ルドラ：実はあいつ、「ダイヤモンドダスト」が使えるんだよ。
-ヒカリ：マトシャにそんな能力がッ！？
-ルドラ：あと「エクソダス」もな。
-　　　：ほら、2つとも「ダス」って文字が入ってるだろ？
-ヒカリ：いや、それは解るけどよ・・
-　　　：・・・・
-　　　：いや、、やっぱ分かんねえよ！！
-ルドラ：まあ、MPが低いから、しょぼいんだけどな。
-ヒカリ：納得いかねえよ、俺だってまだ、青魔でラーニングできないスキルだぞ！？
-ルドラ：おいおい、落ち着けって。。
-　　　：・・ジンガでも食うか？
-ヒカリ：いらねえわ！！
-ルドラ：炊飯器はそこにあるからな。
-ヒカリ：いや、だからいらねえわ！！
-　　　：腹が減ってイライラしてるわけじゃねえんだよ。
-　　　：・・つーかよ。
-　　　：お前、さっきからずーっと、俺の頭をなでてるように見えるんだけど。
-　　　：俺の髪、ちゃんと切ってくれてんのか？
-ルドラ：ああ、心配するな。ちゃんと切ってるよ。
-　　　：ちょうどいいエモートが無くてなぁ。
-ヒカリ：・・なんだか分かんねーけど、切ってくれてんなら、まあいいわ。
-ルドラ：んで、マトシャのヤツ、氷枕のおかげで、その後スヤスヤと眠り始めてよ。
-　　　：俺も役目を果たしたから、ポーションを置いて帰ったってわけ。
-　　　：翌日も様子を見に行ったら、熱もすっかり下がったみたいで、ひと安心したんだわ。
-ヒカリ：そうか。それはまあ、良かったわ。
-♪♪【無音】</textarea>
+            <figcaption>脚本を貼り付ける↓</figcaption>
+            <!--<ul class="annotation">
+                <li>サンプルとして、サベネアの理髪師の「妖精さんパート(OP)」が入力されています。</li>
+            </ul>-->
+            <textarea name="textarea" placeholder="ここに脚本を貼り付けます..." id="kyakuhon"></textarea>
         </figure>
     </section>
     <input type="button" value="マクロ化を実行"  id="run">
@@ -831,12 +754,35 @@ ul.annotation > li::before {
         <input type="button" value="マクロをコピー" id="copy">
     </section>
 
-    <h2 class="mb3 mt8"><span>04</span>txtファイルを作成して貼り付ける</h2>
+    <h2 class="mb3 mt8"><span>04</span>この後の工程について</h2>
     <section id="result" class="mb8">
-        <p>ご自身のスマホやPCで、txtファイルを新しく作成し、コピーした台本を貼り付けて保存します。</p>
-        <p>完成マクロでは、wait.Nの待ち時間は、セリフ一行の文字数によって自動選択されています。</p>
-        <p>作者は、ご自身が意図するセリフのタイミングに修正してください。</p>
+        <ol class="mb3">
+            <li>役者さんにエモート入力をお任せする</li>
+            <li>脚本家自身がエモートを入力する</li>
+        </ol>
+        
+        <p>1.の場合は、<a href="separate.html"><strong>マクロをキャラ別に分ける</strong></a>に進んでください。</p>
+        <p>2.の場合は、次項、「05.txtファイルを作成して貼り付ける」に進んでください。</p>
     </section>
+
+    <h2 class="mb3 mt8"><span>05</span>txtファイルを作成して貼り付ける</h2>
+    <section id="result" class="mb8">
+        <p>ご自身のスマホやPCで、txtファイルを新しく作成し、コピーしたマクロを貼り付けて保存します。</p>
+        <p class="mb3">完成マクロでは、wait.Nの待ち時間は、セリフ一行の文字数によって自動選択されています。</p>
+        <ul class="mb3">
+            <li>～4文字なら &lt;wait.2&gt;</li>
+            <li>5～11文字なら &lt;wait.3&gt;</li>
+            <li>12～22文字なら &lt;wait.4&gt;</li>
+            <li>23字以上で &lt;wait.5&gt;</li>
+        </ul>
+        <p>作者は、自動選択された&lt;wait.N&gt;の秒数が、ご自身が意図するセリフのタイミングとなるよう、手動で修正してください。</p>
+        <p>また、この秒数ですが、比較的簡単に修正ができますので、ぜひフィードバックをお寄せくださいませ！</p>
+    </section>
+
+    <div id="macro_per_character" class="chidden">
+        <h3>キャラ別マクロ数</h3>
+        <ul id="macro_count"></ul>
+    </div>
 </main>
 
 <footer style="margin-top:16rem;">
@@ -859,24 +805,26 @@ ul.annotation > li::before {
     let run = document.getElementById("run");
     run.addEventListener("click", function(e){
 
-        //(入力判定)txtareaから入力した台本の文字列の文字数を取得
-        let t = document.getElementById('daihon').value.length;
+        //(入力文字数の判定)txtareaから入力した脚本の文字列の文字数を取得
+        let t = document.getElementById('kyakuhon').value.length;
 
-        if(t > 20){
+        if(t > 20){ //貼り付けられた脚本テキストが21字以上の時のみマクロ化を実行(ゆるめに設定)
 
-            const input = document.getElementById('daihon');            //input
-            const output = document.getElementById('result-macros');     //output
-            let result = input.value;                                        //result
+            const input = document.getElementById('kyakuhon');             //脚本を貼り付けるtextarea
+            const output = document.getElementById('result-macros');     //マクロ化後の完成テキストを表示するtextarea
+            let result = input.value;                                    //貼り付けられた脚本を、プログラム中で使用するための変数
 
             //データクレンジング
-
-                // 空白の改行が含まれていた場合、置換
+                // 空白の改行が含まれていた場合、削除
                 result = result.replace(/\n\n\n\n/gm,"\n")
                 .replace(/\n\n\n/gm,"\n")
                 .replace(/\n\n/gm,"\n");
 
                 //行末にスペースがあった場合、削除
                 result = result.replace(/^(.*)( |　)$/gm,"$1")
+                .replace(/^(.*)( |　)$/gm,"$1")
+                .replace(/^(.*)( |　)$/gm,"$1")
+                .replace(/^(.*)( |　)$/gm,"$1")
                 .replace(/^(.*)( |　)$/gm,"$1");
 
                 // ◇Nの"N"が全角だった場合に半角に置換
@@ -899,13 +847,88 @@ ul.annotation > li::before {
                         }
                     }
                     result = convertedLines.join('\n');   // 変換後の文字列を結合して表示
+                // -----------------------------------
 
-                // 空白3つや:が半角だった場合、全角に置換
-                result = result.replace(/   /gm,"　　　")
+
+                // :が半角だった場合、全角に置換
+                result = result.replace(/:/gm,"：");
+
+
+                //全角コロンが含まれない、セリフの2行目以降を、「　　　：」と置換。
+                    const lines4 = result.split('\n');   // 行ごとに分割
+                    const match2 = /^　　　.([^：])/;
+                    const array1 = [];
+                    for (const line of lines4) {
+                        const nocolon = line.match(match2);
+                        if (nocolon){
+                            const colonreplace = line.replace(new RegExp(match2, "g"), "　　　：" + "$1");
+                            array1.push(colonreplace);
+                        } else {
+                            array1.push(line);
+                        }
+                    }
+                    result = array1.join('\n');   // 変換後の文字列を結合して表示
+                // -----------------------------------
+
+                //キャラ名の前後に空白がある場合、除去
+                    const cNameInputs = document.querySelectorAll('.character-name'); // HTMLからinput要素を取得
+                    let cNameArray = [];
+                    
+                    cNameInputs.forEach((input) => {
+                        const inputValue = input.value.trim();
+                        cNameArray.push(inputValue);
+                    });
+                    cNameArray = cNameArray.filter(Boolean);
+                    for (let t of cNameArray) {
+                        let array2 = [];
+                        let lines5 = result.split('\n');   // 行ごとに分割
+                        let matchx = "(^[　 ]+)" + t;            //キャラ名の【直前】に1つ以上の半角or全角スペースが存在する場合にマッチ
+
+                        let flag;
+                        if (t.length === 2){               //キャラ名が2文字の場合
+                            flag = 2;
+                        }else if(t.length === 3){          //キャラ名が3文字の場合
+                            flag = 3;
+                        }
+
+                        let matchy;
+                        if(flag == 2){
+                            matchy = t + "(?=[　 ]{2,}).*：";  //キャラ名の【直後】に2つ以上の半角or全角スペースが存在する場合にマッチ
+                        }else if(flag == 3){
+                            matchy = t + "(?=[　 ]+).*：";  //キャラ名の【直後】に1つ以上の半角or全角スペースが存在する場合にマッチ
+                        }
+                        
+                        for (let line of lines5) { 
+                            let extraspace_before = line.match(matchx);
+                            let extraspace_after = line.match(matchy);
+                            var zz = line;
+                            if (extraspace_before){
+                                zz = line.replace(new RegExp(matchx, "gm"), t);
+                            }
+                            if(extraspace_after){
+                                if(flag == 2){
+                                    zz = line.replace(new RegExp(matchy, "gm"), t + "　：");
+                                }else if(flag == 3){
+                                    zz = line.replace(new RegExp(matchy, "gm"), t + "：");
+                                }
+                            }
+                            array2.push(zz);
+                        }
+                        result = array2.join('\n');   // 変換後の文字列を結合して表示
+                    }
+                // -----------------------------------
+
+
+                //空白が4つ以上続く文字列は、全角3つに置換
+                result = result.replace(/^[ 　]{4,}.*：/gm,"　　　：")
                 .replace(/:/gm,"：");
 
+
                 //◇Nの次行に※や♪があった場合、行順序を入れ替える
+                //(条件を満たすまでforしたいが、めんどくさいし、下記でも処理速度に影響なしなので、同じ処理をアホほど繰り返すことにした)
                 result = result.replace(/^(◇\d$)\n(([※♪]).*$)/gm,"$2" + "\n" + "$1")
+                .replace(/^(◇\d$)\n(([※♪]).*$)/gm,"$2" + "\n" + "$1")
+                .replace(/^(◇\d$)\n(([※♪]).*$)/gm,"$2" + "\n" + "$1")
                 .replace(/^(◇\d$)\n(([※♪]).*$)/gm,"$2" + "\n" + "$1")
                 .replace(/^(◇\d$)\n(([※♪]).*$)/gm,"$2" + "\n" + "$1")
                 .replace(/^(◇\d$)\n(([※♪]).*$)/gm,"$2" + "\n" + "$1")
@@ -916,24 +939,43 @@ ul.annotation > li::before {
             // バリデーション
                 //1.空白改行
                 const hasDoubleNewlines = /\n\n/m.test(result);
-                if(hasDoubleNewlines){alert("空白の改行が台本に存在します。\n台本を修正してください。");return;}
+                if(hasDoubleNewlines){alert("空白の改行が脚本に存在します。\n脚本を修正してください。");return;}
 
                 //2."◇"の直後にスペースや改行が来ていないか
                 const next = /^◇( |　|\n).*/m.test(result);
-                if(next){alert("◇の次に空白や改行が含まれています。\n台本を修正してください。");return;}
+                if(next){alert("◇の次に空白や改行が含まれています。\n脚本を修正してください。");return;}
 
                 //3.章節の次行がセリフになっているか
                 const instructions = /^◇.*\n※/m.test(result);
                 const bgm = /^◇.*\n♪/m.test(result);
                 const space = /^◇.*\n( |　)+/m.test(result);
-                if(instructions || bgm || space){alert("◇N(章節)の次の行に指示書きやBGMが書かれています。\n章節の次の行にセリフがくるように修正してください。\n◇Nの次の行の行頭にスペースが無いか？についても、確認してください。");return;}
+                if(instructions || bgm || space){alert("◇N(章節)の次の行に、指示書きやBGMが書かれています。\n章節の次の行にセリフがくるよう、修正してください。\n◇Nの、次の行の頭にスペースが無いか？についても、確認してください。");return;}
 
-                //4.登場人物名が重複していた場合、アラートを表示し終了。
+                //4.登場人物名が重複していた場合、アラートを表示し終了
                 const characterNameInputs = document.querySelectorAll('.character-name'); // HTMLからinput要素を取得
                 const characterNames = Array.from(characterNameInputs).map(input => input.value);
                 const nonEmptyCharacterNames = characterNames.filter(name => name.trim() !== '');
                 const hasDuplicates = new Set(nonEmptyCharacterNames).size !== nonEmptyCharacterNames.length;
                 if (hasDuplicates) {alert('登場人物名が重複しています。');return;}
+
+                //5.登場人物名欄に入力されたキャラ名が存在しなければ、アラートを表示し終了
+                let cNameArray2 = [];
+                characterNameInputs.forEach((input) => {
+                    const inputValue = input.value.trim();
+                    cNameArray2.push(inputValue);
+                });
+                cNameArray2 = cNameArray2.filter(Boolean);    //配列から空の要素を削除
+                let existCharacter = [];
+                for (let t of cNameArray2) {
+                    if(!result.match(t)){
+                        existCharacter.push(t);
+                    }
+                }
+                if(existCharacter.length){ //配列が空ではなかった場合
+                    let x = existCharacter.join('\n');   // 配列内のキャラ名を、改行区切りでｘに代入
+                    alert("次のキャラクター名は、マクロ内に存在しません。\n" + x + "\n「登場人物名」を修正してください。");
+                    return;
+                }
                 
             //-------------------------------
             
@@ -950,9 +992,12 @@ ul.annotation > li::before {
                 });
                 if(charaNameArray == ""){alert("登場人物名を正しく入力してください。");return;} //登場人物名が入力されていなかったり、1文字だった場合に処理を抜ける。
 
-                //「人物名：」の行頭に改行を挿入
+                //「人物名：」の行頭に改行を挿入し、ついでにキャラ別のマクロ数をカウントする
+                let macro_couter = [];
                 for (const t of charaNameArray) {
-                    result = result.replace(new RegExp(t, "g"), `\n${t}`);
+                    result = result.replace(new RegExp(t, "g"), `\n${t}`);  //改行を挿入
+                    const matchCount = (result.match(new RegExp(t, "gm")) || []).length;
+                    macro_couter.push(matchCount);
                 }
 
                 //ラジオボタンから「3桁」or「4桁」の情報を整数で取得
@@ -982,6 +1027,16 @@ ul.annotation > li::before {
                             u = Number(lines2[i].charAt(1)) * 1000
                         }
                     }else if(lines2[i].match(pattern3)){
+                        if(u == undefined){
+                            u = 0;
+                        }
+                        if(u < 100){  //10～99の場合、前ゼロで埋める
+                            if(checkValue == 3){
+                                u = u.toString().padStart(3, '0');
+                            }else if(checkValue == 4){
+                                u = u.toString().padStart(4, '0');
+                            }
+                        }
                         let z = lines2[i+1].slice(0,8);     //次のセリフを先頭から8文字取得
                         convertedLines2.push(u + " " + z);  //連番を振る
                         u++;
@@ -1022,10 +1077,10 @@ ul.annotation > li::before {
                         else if(length >= 12 && length < 19){   // 5～11文字なら <wait.3>
                             z = lines3[i] + " <wait.3>";
                         }
-                        else if(length >= 19 && length < 27){   // 12～19文字なら <wait.4>
+                        else if(length >= 19 && length < 30){   // 12～22文字なら <wait.4>
                             z = lines3[i] + " <wait.4>";
                         }
-                        else if(length >= 27){                  // 20字以上で <wait.5>
+                        else if(length >= 30){                  // 23字以上で <wait.5>
                             z = lines3[i] + " <wait.5>";
                         }
                         convertedLines3.push(z);
@@ -1035,13 +1090,26 @@ ul.annotation > li::before {
                 }
                 result = convertedLines3.join('\n');   // 変換後の文字列を結合して表示
 
-                result = result.replace(/^(\/y.*<wait\.)\d(>$\n\/cwl)/gm,"$1" + "1" + "$2");             // /y行のうち、次行が/cwlのものだけwaitを1に変更
+                result = result.replace(/^(\/y.*<wait\.)\d(>$\n\/cwl)/gm,"$1" + "1" + "$2")              // /y行のうち、次行が/cwlのものだけwaitを1に変更
+                .replace(/^(.*)<wait\.1>$(?!(\n))/gm,"$1" + "\n\n");    //最終行に改行を2行入れる
 
             
             output.value = result;                    //完成マクロのtextareaに反映
             alert("マクロが出力されました。\nご確認ください。");
+
+            //キャラ別マクロ数の表示
+            const divElement = document.getElementById('macro_count');
+            const macro_per_character = document.getElementById('macro_per_character');
+            divElement.innerHTML = '';  // innerHTMLを空にする
+            macro_per_character.classList.remove('chidden');    //chiddenを除去
+            for(i=0; i < charaNameArray.length; i++){   //charaNameArrayには、「タカシ：」や「リサ　：」が入っている。
+                const liElement = document.createElement('li');
+                liElement.textContent = charaNameArray[i] + macro_couter[i] + " 個";
+                divElement.appendChild(liElement);
+            }
+
         }else{
-            alert("台本の文字数が少ないようです。\nもう一度、お手元の台本を貼り付けてください。");
+            alert("脚本の文字数が少ないようです。\nもう一度、お手元の脚本を貼り付けてください。");
         }
     });
 
