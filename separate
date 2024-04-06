@@ -1,0 +1,948 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="format-detection" content="address=no,email=no">
+<meta name="skype_toolbar" content="skype_toolbar_parser_compatible">
+<style>
+html{
+    background:#fbfbfb;
+    background-image:
+    repeating-linear-gradient(to bottom,
+      transparent 25px,
+      rgba(0, 0, 0, 0.03) 26px,  rgba(0, 0, 0, 0.03) 26px,
+      transparent 27px,  transparent 51px, 
+      rgba(0, 0, 0, 0.03) 52px,  rgba(0, 0, 0, 0.03) 52px,
+      transparent 53px,  transparent 77px, 
+      rgba(0, 0, 0, 0.03) 78px,  rgba(0, 0, 0, 0.03) 78px,
+      transparent 79px,  transparent 103px, 
+      rgba(0, 0, 0, 0.03) 104px,  rgba(0, 0, 0, 0.03) 104px,
+      transparent 105px,  transparent 129px, 
+      rgba(0, 0, 0, 0.03) 130px,  rgba(0, 0, 0, 0.03) 130px),
+  
+    repeating-linear-gradient(to right,
+      transparent 25px,
+      rgba(0, 0, 0, 0.03) 26px,  rgba(0, 0, 0, 0.03) 26px,
+      transparent 27px,  transparent 51px, 
+      rgba(0, 0, 0, 0.03) 52px,  rgba(0, 0, 0, 0.03) 52px,
+      transparent 53px,  transparent 77px, 
+      rgba(0, 0, 0, 0.03) 78px,  rgba(0, 0, 0, 0.03) 78px,
+      transparent 79px,  transparent 103px, 
+      rgba(0, 0, 0, 0.03) 104px,  rgba(0, 0, 0, 0.03) 104px,
+      transparent 105px,  transparent 129px, 
+      rgba(0, 0, 0, 0.03) 130px,  rgba(0, 0, 0, 0.03) 130px);
+}
+html,textarea {
+	font-size:15px;
+    color: #373737;
+    letter-spacing: 0.06rem;
+}
+figcaption,label,legend{
+    font-size:1.2rem;
+}
+figcaption{
+    font-weight: bold;
+}
+h1{
+    font-size: 3rem;
+    position: relative;
+    padding: 1rem 2rem calc(1rem + 10px);
+    background-color:#b7eeff;
+    margin-left: 1rem !important;
+    border-radius: 100px;
+    text-align: center;
+}
+h1:before {
+    position: absolute;
+    top: -1rem;
+    left: -1rem;
+    width: 100%;
+    height: 100%;
+    content: '';
+    border: 4px dotted #142150;
+    border-radius: 100px;
+}
+h2,h3{
+    font-size: 2rem;
+}/*
+h2 {
+  position: relative;
+  overflow: hidden;
+  padding: 1.5rem 2rem 1.5rem 130px;
+  border-top: 3px solid #051c60;
+}
+
+h2:before {
+  position: absolute;
+  top: -150%;
+  left: -74px;
+  width: 200px;
+  height: 300%;
+  content: '';
+  -webkit-transform: rotate(25deg);
+  transform: rotate(25deg);
+  background: #051c60;
+}
+h2 span {
+  font-size: 40px;
+  font-size: 4rem;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  display: block;
+  padding-top: 3px;
+  padding-left: 16px;
+  color: #fff;
+}*/
+h2 {
+  position: relative;
+  overflow: hidden;
+  padding: 1.5rem 2rem 1.5rem 130px;
+  word-break: break-all;
+  border-top: 3px solid #051c60;
+  border-radius: 12px 0 0 0;
+}
+
+h2 span {
+  font-size: 40px;
+  font-size: 3.6rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  padding: 3px 20px;
+  color: #fff;
+  border-radius: 10px 0 20px 10px;
+  background: #051c60;
+}
+html *{
+    margin:0;
+}
+section{
+    display:flex;
+    flex-direction: column;
+}
+main{
+    max-width: 800px;
+    margin: 0 auto;
+}
+p{
+    line-height: 2rem;
+}
+ul{
+    line-height: 1.8rem;
+    padding-left: 2rem;
+}
+fieldset{
+    padding:1rem 1.3rem;
+}
+input{
+    height: 30px;
+    display: block;
+    width: 100%;
+}
+input[type="button"]{
+    font-size: 2rem;
+    padding: 0 2rem;
+    height: 100%;
+    color: #fff;
+    background: #dd2f81;
+    border: none;
+    border-radius: 8px;
+    transition: all 0.15s linear;
+    margin: 0 auto;
+    display: block;
+    white-space: wrap;
+    line-height: 130%;
+    min-height: 50px;
+}
+input[type="button"]:hover{
+    transition: all 0.15s linear;
+    background:#951852;
+    cursor:pointer;
+}
+input[type="radio"]{
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+}
+.caution {
+  background: repeating-linear-gradient(135deg, #fff000d4, #fff000d4 10px, #262626c4 10px, #262626c4 20px);
+  padding: 6px;
+  display: inline-block;
+  border: 2px solid #5f5f5f;
+  border-radius: 4px;
+  box-shadow: 0px 0px 6px 0px #ac2e2ed4;
+}
+.caution .caution-inner {
+  background: #f7f7f7;
+  padding: 3rem 2rem 3rem 1rem;
+  border: 1px solid #262626c4;
+  min-width: 160px;
+}
+#sample{
+    min-height: 266px;
+}
+#sample textarea{
+    width:100%;
+    height:333px;
+}
+#macro,#result-macros{
+    width: 100%;
+    height:400px;
+}
+.mb3{
+    margin-bottom:3rem;
+}
+.mt3{
+    margin-top: 3rem;
+}
+.mb5{
+    margin-bottom:5rem;
+}
+.mt5{
+    margin-top: 5rem;
+}
+.mb8{
+    margin-bottom: 8rem;
+}
+.mt8{
+    margin-top: 8rem;
+}
+footer{
+    width:100%;
+}
+.copyright{
+    text-align: center;
+    margin:2rem 0;
+}
+.note{
+    color:#c21e09;
+}
+/*schedule*/
+.flex-schedule {
+  max-width: 400px;
+  list-style: none;
+  margin: 0 2rem 0 2em;
+  padding-left: 20px;
+  border-left: 6px solid #ff008f;
+  box-sizing: border-box;
+}
+.flex-schedule-disabled{
+  max-width: 400px;
+  list-style: none;
+  margin: 0 2rem 0 2em;
+  padding-left: 20px;
+  border-left: 6px solid #d4d4d4;
+  box-sizing: border-box;
+}
+
+.flex-schedule li,
+.flex-schedule-disabled li{
+  width: 100%;
+  margin: 0 0;
+  padding: 5px 0;
+  position: relative;
+}
+
+.flex-schedule li::before{
+    content: "";
+  position: absolute;
+  left: -33px;
+  top: 24px;
+  background: #ff008f;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+}
+.flex-schedule-disabled li::before {
+    content: "";
+  position: absolute;
+  left: -33px;
+  top: 24px;
+  background: #d4d4d4;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+}
+
+.flex-schedule .sch_box,
+.flex-schedule-disabled .sch_box{
+  display: inline-block;
+  width: 100%;
+  margin-left: 30px;
+  padding: 15px 10px 15px 10px;
+  vertical-align: middle;
+  background: #e9e9e9;
+  box-sizing: border-box;
+  border-radius: 6px;
+}
+
+.flex-schedule .sch_title,
+.flex-schedule-disabled .sch_title{
+  font-size: 16px;
+  font-weight: 700;
+}
+.flex-schedule .sch_tx,
+.flex-schedule-disabled .sch_tx {
+  font-size: 14px;
+  font-weight: normal;
+}
+span.term{
+    font-size: 90%;
+    font-weight: bold;
+    color: #ce0e0e;
+    display: block;
+}
+/*ここまで*/
+
+/* + button */
+.c-markup_view {
+display: inline-block;
+  font-size: 40px;
+}
+.dli-plus-circle {
+  display: inline-block;
+  vertical-align: middle;
+  color: #333;
+  line-height: 1;
+  position: relative;
+  width: .8em;
+  height: .8em;
+  border: 0.1em solid currentColor;
+  border-radius: 50%;
+  box-sizing: content-box;
+  cursor:pointer;
+}
+
+.dli-plus-circle > span {
+  width: 46%;
+  height: 0.1em;
+  background: currentColor;
+  border-radius: 0.1em;
+  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.dli-plus-circle > span::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: inherit;
+  border-radius: inherit;
+  transform: rotate(90deg);
+}
+.add_chara{
+    text-align: center;
+}
+/* ここまで */
+
+/*吹き出し*/
+.balloon1 {
+  position: relative;
+  display: inline-block;
+  padding: 7px 10px;
+  min-width: 120px;
+  max-width: 100%;
+  color: #555;
+  font-size: 16px;
+  background: #c8d8ed;
+  border-radius: 15px;
+  bottom: 5px;
+  left: 12px;
+}
+
+.balloon1::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -20px;
+  margin-top: -7px;
+  border: 7px solid transparent;
+    border-right-width: 7px;
+    border-right-style: solid;
+    border-right-color: transparent;
+  border-right: 15px solid #c8d8ed;
+}
+.balloon1 p {
+  margin: 0;
+  padding: 0;
+}
+/* ここまで */
+
+#sample figcaption {
+  position: relative;
+  padding: 1.5rem 2rem;
+  color: #fff;
+  border-radius: 10px;
+  background: #094;
+  display: inline-block;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+#sample figcaption:after {
+  position: absolute;
+  bottom: -9px;
+  left: 1em;
+  width: 0;
+  height: 0;
+  content: '';
+  border-width: 10px 10px 0 10px;
+  border-style: solid;
+  border-color: #094 transparent transparent transparent;
+}
+.hidden{
+    display:none;
+}
+@media(min-width:700px){
+    main{
+        padding:3rem;
+    }
+}
+@media(max-width:700px){
+    html,textarea {
+        font-size:13px;
+    }
+    main{
+        margin:0 1rem;
+    }
+    h2 span {
+        font-size: 2.8rem;
+    }
+    h2::before {
+        left:-110px;
+    }
+    h2{
+        padding: .8rem 2rem 1.5rem 108px;
+        font-size: 1.6rem;
+    }
+}
+ul.annotation {
+    list-style:none;
+  position: relative;
+  margin-left:2rem;
+  padding:0;
+}
+ul.annotation li {
+  color: #df0300;
+  font-size: 85%;
+}
+ul.annotation > li::before {
+  content: "\203B";
+  position: absolute;
+  left: -17px;
+}
+#macro_count{
+    list-style: none;
+}
+#macro_per_character{
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    background: #fff;
+    padding: 1rem;
+    box-shadow: 2px -4px 8px 3px #0000002b;
+    border-radius: 10px 10px 0 0;
+    z-index: 100;
+    animation: slidein 0.8s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+@keyframes slidein{
+	from {
+	  transform: translateY(120px);
+      opacity: 0;
+	}
+	to {
+	  transform: translateY(0);
+      opacity: 1;
+	}
+}
+#macro_per_character ul{
+    padding:0;
+}
+#macro_per_character h3{
+    font-size:1rem;
+    color: #fff;
+    padding: .2rem .8rem;
+    background: #de1720;
+    display: inline-block;
+    border-radius: 8px;
+}
+.chidden{
+    display: none;
+}
+.flex-schedule .sch_box.orng{
+    background:#fcd;
+}
+.flex-schedule-disabled p.sch_title{
+color: #7f7f7f;
+}
+textarea{
+    width:100%;
+    min-height:300px;
+}
+a.btn-flat {
+  overflow: hidden;
+
+  padding: 1.5rem 6rem;
+
+  color: #fff;
+  border-radius: 0;
+  background: #000;
+}
+
+a.btn-flat span {
+  position: relative;
+}
+
+a.btn-flat:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100px;
+  height: 100px;
+
+  content: '';
+  -webkit-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+  -webkit-transform: translateX(-80%) translateY(-25px);
+  transform: translateX(-80%) translateY(-25px);
+
+  border-radius: 50%;
+  background: #ffed2a;
+}
+
+a.btn-flat:hover:before {
+  width: 400px;
+  height: 400px;
+
+  -webkit-transform: translateX(-1%) translateY(-175px);
+
+  transform: translateX(-1%) translateY(-175px);
+}
+#gnavi ul{
+    list-style: none;
+}
+#gnavi ul li a span{
+    color: #fff;
+    -webkit-transition: all 0.7ss;
+    transition: all 0.7s;
+}
+.btn,
+a.btn,
+button.btn {
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.5;
+  position: relative;
+  display: inline-block;
+  padding: 1rem 4rem;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  color: #212529;
+  border-radius: 0.5rem;
+}
+#gnavi ul li a.btn:hover span{
+    color:#161616;
+    -webkit-transition: all 0.7s;
+    transition: all 0.7s;  
+}
+</style>
+<h1 class="mb5 mt5">マクロをキャラ別に分ける</h1>
+<header id="site-header" class="mb5">
+    <nav id="gnavi">
+        <ul>
+            <li>
+                <a href="index.html" class="btn btn-flat">
+                <span>脚本からマクロに加工 ></span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main id="home" class="mb8">
+    
+    <h2 class="mb3"><span>01</span>はじめに</h2>
+    <p class="mb3">このページでは、完成したマクロを、キャラクター別に分離していきます。</p>
+
+    <ul class="flex-schedule-disabled">
+        <li>
+            <div class="area">
+            <div class="sch_box">
+                <p class="sch_title">脚本完成</p>
+            </div>
+            </div>
+        </li>
+        <!-- <li>
+          <div class="area">
+            <div class="sch_box">
+              <p class="sch_title">タイトル</p>
+              <p class="sch_tx">
+                内容テキストテキストテキストテキストテキストテキストテ<br>キスト
+              </p>
+            </div>
+          </div>
+        </li> -->
+        <li>
+            <div class="area">
+              <div class="sch_box">
+                <p class="sch_title">マクロ番号(連番)を振る</p>
+              </div>
+            </div>
+          </li>
+        <li>
+          <div class="area">
+            <div class="sch_box">
+              <p class="sch_title">マクロタイトル(セリフの出だし)を入力</p>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="area">
+            <div class="sch_box">
+              <p class="sch_title">/y や /cwl の入力</p>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="area">
+            <div class="sch_box">
+              <p class="sch_title">&lt;wait.N&gt;の入力</p>
+            </div>
+          </div>
+        </li>
+        <li>
+            <div class="area">
+            <div class="sch_box">
+                <p class="sch_title">エモートの入力</p>
+            </div>
+            </div>
+        </li>
+    </ul>
+
+    <ul class="flex-schedule">
+        <li>
+            <div class="area">
+            <div class="sch_box orng">
+                <p class="sch_title">マクロをキャラ別に分ける</p>
+            </div>
+            </div>
+        </li>
+      </ul>
+
+    <h3 class="mt5">完成マクロの確認点</h3>
+    <div class="caution mb8">
+        <div class="caution-inner">
+            <div class="intro-text">
+                    <ul>
+                        <li class="note"><strong>セリフとセリフの間に、2行の空白の改行が必要です。</strong></li>
+                        <li>マクロの最終行にも、空白の改行2行が必要です。</li>
+                    </ul>
+            </div>
+        </div>
+    </div>
+    
+    <h2 class="mb3"><span>02</span>キャラ名とマクロを入力します</h2>
+
+    <fieldset class="mb5">
+        <legend>登場人物名の入力</legend>
+        <div class="mb3">
+            <label for="chara01">登場人物 1</label>
+            <input size="6" maxlength="3" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara01" id="chara01" class="character-name">
+        </div>
+
+        <div class="second_chara">
+            <div class="mb3">
+                <label for="chara02">登場人物 2</label>
+                <input size="6" maxlength="3" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara02" id="chara02" class="character-name">
+            </div>
+            <div class="add_chara mb3">
+                <div class="c-markup_view">
+                    <span class="dli-plus-circle"><span></span></span>
+                </div>
+                <div class="balloon1">
+                    <p>3人目の登場人物を追加</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="third_chara hidden">
+            <div class="mb3">
+                <label for="chara02">登場人物 3</label>
+                <input size="6" maxlength="3" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara03" id="chara03" class="character-name">
+            </div>
+        
+            <div class="add_chara mb3">
+                <div class="c-markup_view">
+                    <span class="dli-plus-circle"><span></span></span>
+                </div>
+                <div class="balloon1">
+                    <p>4人目の登場人物を追加</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="fourth_chara hidden">
+            <div class="mb3">
+                <label for="chara02">登場人物 4</label>
+                <input size="6" maxlength="3" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara04" id="chara04" class="character-name">
+            </div>
+        
+            <div class="add_chara mb3">
+                <div class="c-markup_view">
+                    <span class="dli-plus-circle"><span></span></span>
+                </div>
+                <div class="balloon1">
+                    <p>5人目の登場人物を追加</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="fifth_chara hidden">
+            <div class="mb3">
+                <label for="chara02">登場人物 5</label>
+                <input size="6" maxlength="3" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara05" id="chara05" class="character-name">
+            </div>
+        
+            <div class="add_chara mb3">
+                <div class="c-markup_view">
+                    <span class="dli-plus-circle"><span></span></span>
+                </div>
+                <div class="balloon1">
+                    <p>6人目の登場人物を追加</p>
+                </div>
+            </div>
+        </div>
+        <div class="sixth_chara hidden">
+            <div class="mb3">
+                <label for="chara02">登場人物 6</label>
+                <input size="6" maxlength="3" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara06" id="chara06" class="character-name">
+            </div>
+        </div>
+    </fieldset>
+
+    <section id="input-macro" class="mb5">
+        <figure>
+            <figcaption>マクロを貼り付ける↓</figcaption>
+            <textarea name="textarea" placeholder="ここにマクロを貼り付けます..." id="macro"></textarea>
+        </figure>
+    </section>
+    <input type="button" value="マクロをキャラ別に分ける"  id="run">
+
+    <h2 class="mt8"><span>03</span>完成したマクロをコピーします</h2>
+    <section id="result" class="mb8">
+        <div class="mpc_wrapp mt8 hidden">
+            <figure class="mb5">
+                <figcaption>●●●</figcaption>
+                <textarea name="textarea" id="separate-macros-01" class="result_txtarea"></textarea>
+            </figure>
+            <input type="button" value="●●●のマクロをコピー" class="copy">
+        </div>
+        <div class="mpc_wrapp mt8 hidden">
+            <figure class="mb5">
+                <figcaption>●●●</figcaption>
+                <textarea name="textarea" id="separate-macros-02" class="result_txtarea"></textarea>
+            </figure>
+            <input type="button" value="●●●のマクロをコピー" class="copy">
+        </div>
+        <div class="mpc_wrapp mt8 hidden">
+            <figure class="mb5">
+                <figcaption>●●●</figcaption>
+                <textarea name="textarea" id="separate-macros-03" class="result_txtarea"></textarea>
+            </figure>
+            <input type="button" value="●●●のマクロをコピー" class="copy">
+        </div>
+        <div class="mpc_wrapp mt8 hidden">
+            <figure class="mb5">
+                <figcaption>●●●</figcaption>
+                <textarea name="textarea" id="separate-macros-04" class="result_txtarea"></textarea>
+            </figure>
+            <input type="button" value="●●●のマクロをコピー" class="copy">
+        </div>
+        <div class="mpc_wrapp mt8 hidden">
+            <figure class="mb5">
+                <figcaption>●●●</figcaption>
+                <textarea name="textarea" id="separate-macros-05" class="result_txtarea"></textarea>
+            </figure>
+            <input type="button" value="●●●のマクロをコピー" class="copy">
+        </div>
+        <div class="mpc_wrapp mt8 hidden">
+            <figure class="mb5">
+                <figcaption>●●●</figcaption>
+                <textarea name="textarea" id="separate-macros-06" class="result_txtarea"></textarea>
+            </figure>
+            <input type="button" value="●●●のマクロをコピー" class="copy">
+        </div>
+    </section>
+
+    <h2 class="mb3 mt8"><span>04</span>txtファイルを作成して貼り付ける</h2>
+    <section id="result" class="mb8">
+        <p>ご自身のスマホやPCで、txtファイルを新しく作成し、コピーしたキャラ別マクロを貼り付けて保存します。</p>
+        <p class="mb3">以上でマクロ化は完成です。Discordで担当の方にお渡しください。</p>
+        <p>お疲れ様でございました！</p>
+    </section>
+
+    <div id="macro_per_character" class="chidden">
+        <h3>キャラ別マクロ数</h3>
+        <ul id="macro_count"></ul>
+    </div>
+</main>
+
+<footer style="margin-top:16rem;">
+    <div class="copyright">© 2024 劇団彩</div>
+</footer>
+
+<script>
+    /* 登場人物追加ボタン */
+    let addbtn = document.querySelectorAll(".c-markup_view");
+    addbtn.forEach(e => {
+        e.addEventListener('click', () => {
+            e.parentElement.classList.add("hidden");    //クリックした+ボタンを消す
+            let element = e.parentElement.parentElement.nextElementSibling;
+            element.classList.remove("hidden");         //次の入力欄を表示する
+        })
+    })
+
+    /* マクロをキャラ別化 */
+
+    //登場人物の配列数分だけ、別の配列にプッシュし、要素を作り、値を代入
+    let run = document.getElementById("run");
+    run.addEventListener("click", function(e){
+        const input = document.getElementById('macro');           //マクロを貼り付けるtextarea
+        const output = document.getElementById('result-macros');     //マクロ化後の完成テキストを表示するtextarea
+        let result = input.value;                                    //貼り付けられた脚本を、プログラム中で使用するための変数
+        let t = input.value.length;                                 //(入力文字数の判定)txtareaから入力した脚本の文字列の文字数を取得
+
+        if(t > 20){ //貼り付けられた脚本テキストが21字以上の時のみマクロ化を実行(ゆるめに設定)
+
+            //データクレンジング
+                result = result.replace(/^(?!$)(.*\n\n)(?!\n)/gm,"$1" + "\n");  //セリフ間の空白改行が1行だった場合、2行に置換
+            //-------------------
+
+
+            //登場人物名を配列cNameArrayに格納
+            const cNameInputs = document.querySelectorAll('.character-name'); // 登場人物名を取得
+            let cNameArray = [];
+            cNameInputs.forEach((input) => {
+                const inputValue = input.value.trim();
+                cNameArray.push(inputValue);
+            });
+            cNameArray = cNameArray.filter(Boolean);    //配列から空の要素を削除
+
+            //バリデーション
+                //キャラ名の存在チェック
+                let existCharacter = [];
+                for (let t of cNameArray) {
+                    if(!result.match(t)){
+                        existCharacter.push(t);
+                    }
+                }
+                if(existCharacter.length){ //配列が空ではなかった場合
+                    let x = existCharacter.join('\n');   // 配列内のキャラ名を、改行区切りでｘに代入
+                    alert("次のキャラクター名は、マクロ内に存在しません。\n" + x + "\n「登場人物名」を修正してください。");
+                    return;
+                }
+
+                //登場人物名欄に入力されたキャラ名が重複していた場合、アラートを表示し終了。
+                const characterNames = Array.from(cNameInputs).map(input => input.value);
+                const nonEmptyCharacterNames = characterNames.filter(name => name.trim() !== '');
+                const hasDuplicates = new Set(nonEmptyCharacterNames).size !== nonEmptyCharacterNames.length;
+                if (hasDuplicates) {alert('登場人物名が重複しています。\n「登場人物名」を修正してください。');return;}
+            
+            //-------------------
+
+
+            let result_value;
+            let count = 0;
+            for (let z of cNameArray) { //登場人物数の分だけ実行
+
+                const pattern_first_line = new RegExp('^\\d{3,4} ' + z,"gm");    //マクロのセリフの塊の1行目
+                const pattern_empty = "";                                   //空白の改行
+                const lines = result.split('\n');   // 行ごとに分割
+                const lengthx = lines.length;        //ループの終値
+                const convertedLines = [];         // 変換後の文字列を格納する配列
+
+                // 各行を配列で処理
+                let flag;
+                for (let i = 0; i < lengthx; i++) {
+                    const matchz = lines[i].match(pattern_first_line);
+                    const match2 = lines[i].match(pattern_empty);
+                    if(lines[i] == ""){
+                        flag = false;
+                    }
+                    if(matchz){
+                        flag = true;
+                    }
+                    if(flag){
+                        convertedLines.push(lines[i]);
+                    }
+                }
+                result_value = convertedLines.join('\n');   // 変換後の文字列を結合して表示
+                result_value = result_value.replace(/(^\d{3,4}.*)/gm,"\n\n" + "$1");    //セリフ間に2行の改行を挿入
+
+                //セリフ数のカウント
+                const matchCount = (result_value.match(new RegExp("^\\d{3,4} " + z, "gm")) || []).length;
+                let y = "------------------------------------\n" + "■" +  z + "のマクロ数： " + matchCount + "個\n------------------------------------\n";
+                result_value = y + result_value;
+                result_value = result_value.replace(/^(.*)$(?!(\n))/gm,"$1" + "\n\n");
+                
+
+                //HTML要素の作成
+                const elements = document.getElementsByClassName("mpc_wrapp");    //キャラ別マクロが個々に出力される要素のラップ
+                const targetClass = 'hidden';
+                let p = 0;
+
+                elements[count].classList.remove("hidden");         //表示
+                let fig_cName = elements[count].querySelector('figcaption');
+                let inp_button = elements[count].querySelector('input');
+                let paste = document.getElementById("result").getElementsByClassName("result_txtarea");
+
+                fig_cName.textContent = "■" + z + " のキャラ別マクロ";
+                inp_button.value = z + "のマクロをコピー";
+                paste[count].value = result_value;
+
+                count++;
+            }
+
+            //output.value = result;                    //完成マクロのtextareaに反映
+            alert("マクロが出力されました。\nご確認ください。");
+        }else{
+                alert("マクロの文字数が少ないようです。\nもう一度、お手元の完成したマクロを貼り付けてください。");
+        }        
+    });
+
+    //コピーボタンのクリックイベント
+    const copyButton =  document.getElementsByClassName("copy");
+    for (let i = 0; i < copyButton.length; i++) {
+        copyButton[i].onclick = (e) => {
+        const textarea = copyButton[i].parentElement.querySelector("textarea"); //クリックしたコピーボタンと関連したテキストエリア
+        let targetName = copyButton[i].parentElement.querySelector("figcaption").innerHTML; //クリックしたコピーボタンと関連したテキストエリア
+        let x = targetName.replace("■", "").replace(/ .*/gm, "");  //コピー対象のキャラ名を取得
+        textarea.select();              // テキストを選択
+        document.execCommand("copy");   // クリップボードにコピー
+        alert(x + " のマクロをコピーしました。");
+        }
+    }
+
+</script>
+</html>
