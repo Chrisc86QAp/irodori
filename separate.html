@@ -669,12 +669,20 @@ button.btn {
         <div class="mb3">
             <label for="chara01">登場人物 1</label>
             <input size="6" maxlength="3" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara01" id="chara01" class="character-name">
+            <p>このキャラは yell, shout, say どれで発言しますか？</p>
+            <input type="radio" name="y-or-sh_1" value="yell" checked=""><label>yell</label>
+            <input type="radio" name="y-or-sh_1" value="shout"><label>shout</label>
+            <input type="radio" name="y-or-sh_1" value="say"><label>say</label>
         </div>
 
         <div class="second_chara">
             <div class="mb3">
                 <label for="chara02">登場人物 2</label>
                 <input size="6" maxlength="3" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara02" id="chara02" class="character-name">
+                <p>このキャラは yell, shout, say どれで発言しますか？</p>
+                <input type="radio" name="y-or-sh_2" value="yell" checked=""><label>yell</label>
+                <input type="radio" name="y-or-sh_2" value="shout"><label>shout</label>
+                <input type="radio" name="y-or-sh_2" value="say"><label>say</label>
             </div>
             <div class="add_chara mb3">
                 <div class="c-markup_view">
@@ -690,6 +698,10 @@ button.btn {
             <div class="mb3">
                 <label for="chara02">登場人物 3</label>
                 <input size="6" maxlength="3" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara03" id="chara03" class="character-name">
+                <p>このキャラは yell, shout, say どれで発言しますか？</p>
+                <input type="radio" name="y-or-sh_3" value="yell" checked=""><label>yell</label>
+                <input type="radio" name="y-or-sh_3" value="shout"><label>shout</label>
+                <input type="radio" name="y-or-sh_3" value="say"><label>say</label>
             </div>
         
             <div class="add_chara mb3">
@@ -706,6 +718,10 @@ button.btn {
             <div class="mb3">
                 <label for="chara02">登場人物 4</label>
                 <input size="6" maxlength="3" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara04" id="chara04" class="character-name">
+                <p>このキャラは yell, shout, say どれで発言しますか？</p>
+                <input type="radio" name="y-or-sh_4" value="yell" checked=""><label>yell</label>
+                <input type="radio" name="y-or-sh_4" value="shout"><label>shout</label>
+                <input type="radio" name="y-or-sh_4" value="say"><label>say</label>
             </div>
         
             <div class="add_chara mb3">
@@ -722,6 +738,10 @@ button.btn {
             <div class="mb3">
                 <label for="chara02">登場人物 5</label>
                 <input size="6" maxlength="3" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara05" id="chara05" class="character-name">
+                <p>このキャラは yell, shout, say どれで発言しますか？</p>
+                <input type="radio" name="y-or-sh_5" value="yell" checked=""><label>yell</label>
+                <input type="radio" name="y-or-sh_5" value="shout"><label>shout</label>
+                <input type="radio" name="y-or-sh_5" value="say"><label>say</label>
             </div>
         
             <div class="add_chara mb3">
@@ -737,6 +757,10 @@ button.btn {
             <div class="mb3">
                 <label for="chara02">登場人物 6</label>
                 <input size="6" maxlength="3" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara06" id="chara06" class="character-name">
+                <p>このキャラは yell, shout, say どれで発言しますか？</p>
+                <input type="radio" name="y-or-sh_6" value="yell" checked=""><label>yell</label>
+                <input type="radio" name="y-or-sh_6" value="shout"><label>shout</label>
+                <input type="radio" name="y-or-sh_6" value="say"><label>say</label>
             </div>
         </div>
     </fieldset>
@@ -871,6 +895,17 @@ button.btn {
             
             //-------------------
 
+            
+            // name属性が'y-or-sh_1'のラジオボタンからチェックされたものを取得
+            function getCheckedRadioValue(name) {
+                const radios = document.querySelectorAll(`input[name="${name}"]`);  // ドキュメントからname属性が指定されたラジオボタンをすべて取得
+                for (const radio of radios) {   // 取得したラジオボタンのリストをループ
+                    if (radio.checked) {    // チェックされているかどうかを確認
+                        return radio.value; // チェックされている場合、その値を返す
+                    }
+                }
+                return null;    // チェックされたラジオボタンがない場合はnullを返す
+            }
 
             let result_value;
             let count = 0;
@@ -899,6 +934,31 @@ button.btn {
                 }
                 result_value = convertedLines.join('\n');   // 変換後の文字列を結合して表示
                 result_value = result_value.replace(/(^\d{3,4}.*)/gm,"\n\n" + "$1");    //セリフ間に2行の改行を挿入
+
+                //yell,shout,sayの置換
+                let args = "y-or-sh_" + (count + 1);
+                const checkedValue = getCheckedRadioValue(args);
+                let target;
+                
+                switch (checkedValue) {
+                    case "yell":
+                        target = null;
+                        break;
+                    case "shout":
+                        target = "/sh "
+                        break;
+                    case "say":
+                        target = "/s "
+                        break;
+                    default:
+                        alert("yell,shout,say いずれも選択されていません。");
+                        return;
+                }
+
+                if(target != null){
+                    result_value = result_value.replace(/^\/y /gm,target);
+                }
+
 
                 //セリフ数のカウント
                 const matchCount = (result_value.match(new RegExp("^\\d{3,4} " + z, "gm")) || []).length;
