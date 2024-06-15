@@ -771,9 +771,9 @@ button.btn {
         <p class="mb3">完成マクロでは、wait.Nの待ち時間は、セリフ一行の文字数によって自動選択されています。</p>
         <ul class="mb3">
             <li>～4文字なら &lt;wait.2&gt;</li>
-            <li>5～11文字なら &lt;wait.3&gt;</li>
-            <li>12～22文字なら &lt;wait.4&gt;</li>
-            <li>23字以上で &lt;wait.5&gt;</li>
+            <li>5～15文字なら &lt;wait.3&gt;</li>
+            <li>15～25文字なら &lt;wait.4&gt;</li>
+            <li>25字以上で &lt;wait.5&gt;</li>
         </ul>
         <p>作者は、自動選択された&lt;wait.N&gt;の秒数が、ご自身が意図するセリフのタイミングとなるよう、手動で修正してください。</p>
         <p>また、この秒数ですが、比較的簡単に修正ができますので、ぜひフィードバックをお寄せくださいませ！</p>
@@ -1071,16 +1071,16 @@ button.btn {
                     if (lines3[i].match(pattern4)) {
                         let length = lines3[i].length;
                         var z;
-                        if(length < 12){
+                        if(length < 12){                        //「/y ルドラ：」までが7文字
                             z = lines3[i] + " <wait.2>";        // ～4文字なら <wait.2>
                         }
-                        else if(length >= 12 && length < 19){   // 5～11文字なら <wait.3>
+                        else if(length >= 12 && length < 23){   // 5～15文字なら <wait.3>
                             z = lines3[i] + " <wait.3>";
                         }
-                        else if(length >= 19 && length < 30){   // 12～22文字なら <wait.4>
+                        else if(length >= 23 && length < 38){   // 16～30文字なら <wait.4>
                             z = lines3[i] + " <wait.4>";
                         }
-                        else if(length >= 30){                  // 23字以上で <wait.5>
+                        else if(length >= 38){                  // 31字以上で <wait.5>
                             z = lines3[i] + " <wait.5>";
                         }
                         convertedLines3.push(z);
@@ -1092,6 +1092,18 @@ button.btn {
 
                 result = result.replace(/^(\/y.*<wait\.)\d(>$\n\/cwl)/gm,"$1" + "1" + "$2")              // /y行のうち、次行が/cwlのものだけwaitを1に変更
                 .replace(/^(.*)<wait\.1>$(?!(\n))/gm,"$1" + "\n\n");    //最終行に改行を2行入れる
+
+
+                // 7行チェッカー
+                // 1つのマクロ欄へ登録できる行数は15行。1行のセリフに対し1エモを想定すると、1マクロあたりの最大セリフ行数は7行となる。
+                let sections = result.split('\n\n');    // 文字列を\n\nで分割
+                for (let section of sections) {         // 各セクションの行数を確認
+                    let lines = section.split('\n');
+                    if (lines.length > 10) {
+                        alert("行数が7行を超えている箇所があります。\n後にエモートを入力するので、7行以内に収めるか、マクロを分割してください。\n分割する際は、8行目の行頭「　　　：」の空白3文字を、キャラ名に変更します。");
+                        return;
+                    }
+                }
 
             
             output.value = result;                    //完成マクロのtextareaに反映
