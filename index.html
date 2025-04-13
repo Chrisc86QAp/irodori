@@ -660,13 +660,13 @@ button.btn {
 		<legend>登場人物名の入力</legend>
 		<div class="mb3">
 			<label for="chara01">登場人物 1</label>
-			<input size="6" maxlength="4" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara01" id="chara01" class="character-name">
+			<input size="6" maxlength="4" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara01" id="chara01" class="character-name" value="翔太">
 		</div>
 
 		<div class="second_chara">
 			<div class="mb3">
 				<label for="chara02">登場人物 2</label>
-				<input size="6" maxlength="4" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara02" id="chara02" class="character-name">
+				<input size="6" maxlength="4" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara02" id="chara02" class="character-name" value="美咲">
 			</div>
 			<div class="add_chara mb3">
 				<div class="c-markup_view">
@@ -681,7 +681,7 @@ button.btn {
 		<div class="third_chara hidden">
 			<div class="mb3">
 				<label for="chara02">登場人物 3</label>
-				<input size="6" maxlength="4" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara03" id="chara03" class="character-name">
+				<input size="6" maxlength="4" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara03" id="chara03" class="character-name" value="玲奈">
 			</div>
 		
 			<div class="add_chara mb3">
@@ -806,10 +806,15 @@ button.btn {
 	run.addEventListener("click", function(e){
 
 		//(入力文字数の判定)txtareaから入力した脚本の文字列の文字数を取得
-		let t = document.getElementById('kyakuhon').value.length;
+		let kyakuhon_str = document.getElementById('kyakuhon').value;
 
-		if(t > 20){ //貼り付けられた脚本テキストが21字以上の時のみマクロ化を実行(ゆるめに設定)
+		if(kyakuhon_str.length > 20){ //貼り付けられた脚本テキストが21字以上の時のみマクロ化を実行(ゆるめに設定)
 
+			let flag_seven_lines_checker = 1;
+			if( kyakuhon_str.match(/\/converse/g) ){
+				flag_seven_lines_checker = 0;
+			}
+			console.log("flag_seven_lines_checkerの値は：",flag_seven_lines_checker);
 			const input = document.getElementById('kyakuhon');			 //脚本を貼り付けるtextarea
 			const output = document.getElementById('result-macros');	 //マクロ化後の完成テキストを表示するtextarea
 			let result = input.value;									//貼り付けられた脚本を、プログラム中で使用するための変数
@@ -1113,51 +1118,57 @@ button.btn {
 				.replace(/^(\d{3,4}.*$)/gm,"\n\n"+"$1")												//マクロ番号の直前に改行を挿入
 				.replace(/^♪/gm,"/cwl ♪")
 				.replace(/^[※]/gm,"/cwl ")
-				.replace(/(^\/cwl.*$)(?!\n\n)/gm,"$1" + " <wait\.1>");			  //セリフ最終行の次のセリフ以外の/cwlの末尾に<wait.1>を挿入
+				.replace(/(^\/cwl.*(?<!<wait\.[\d]>)$)(?!\n\n)/gm,"$1" + " <wait\.1>");			  //セリフ最終行の次のセリフ以外の/cwlの末尾に<wait.1>を挿入
 
 				//一行ずつ走査し、/yセリフ行の場合、文字数をカウントして<wait.N>を挿入
-				const lines3 = result.split('\n');   // 行ごとに分割
-				const maximumLine2 = lines3.length   // 行数
-				const pattern4 = /^(\/y.*$)/gm;	  	// 正規表現パターン：行頭が/yで始まる行
-				const convertedLines3 = [];		  	// 変換後の文字列を格納する配列
+				const lines3 = result.split('\n');  					// 行ごとに分割
+				const maximumLine2 = lines3.length  					// 行数
+				const pattern4 = /^(\/y .*(?<!<wait\.[\d]>)$)/gm;	  	// 正規表現パターン：行頭が/y で始まる行
+				const convertedLines3 = [];		  						// 変換後の文字列を格納する配列
 
 				for (let i = 0; i < maximumLine2; i++) {
 					if (lines3[i].match(pattern4)) {
 						let length = lines3[i].length;
-						var z;
+						var push_wait;
 						if(length < 12){						//「/y ルドラ：」までが7文字
-							z = lines3[i] + " <wait.2>";		// ～4文字なら <wait.2>
+							push_wait = lines3[i] + " <wait.2>";		// ～4文字なら <wait.2>
 						}
 						else if(length >= 12 && length < 23){   // 5～15文字なら <wait.3>
-							z = lines3[i] + " <wait.3>";
+							push_wait = lines3[i] + " <wait.3>";
 						}
 						else if(length >= 23 && length < 38){   // 16～30文字なら <wait.4>
-							z = lines3[i] + " <wait.4>";
+							push_wait = lines3[i] + " <wait.4>";
 						}
 						else if(length >= 38){				  	// 31字以上で <wait.5>
-							z = lines3[i] + " <wait.5>";
+							push_wait = lines3[i] + " <wait.5>";
 						}
-						convertedLines3.push(z);
+						convertedLines3.push(push_wait);
 					} else {
 						convertedLines3.push(lines3[i]);
 					}
 				}
 				result = convertedLines3.join('\n');   // 変換後の文字列を結合して表示
 
-				result = result.replace(/^(\/y.*<wait\.)\d(>$\n\/cwl)/gm,"$1" + "1" + "$2")			  // /y行のうち、次行が/cwlのものだけwaitを1に変更
-				.replace(/^(.*)<wait\.1>$(?!(\n))/gm,"$1" + "\n\n");	//最終行に改行を2行入れる
+				result = result
+				.replace(/^(\/y|\/sh|\/say)( .*)(<wait\.[\d]>)(\n\/[a-z]+)(?<! <wait\.[\d]>)$/gm,"$1" + "$2" + "$4" + " $3")	// セリフ行の次行にエモがあり、エモの末尾にwaitが無い場合、セリフ行のwaitをエモ行の末尾へ移動
+				.replace(/^(\/(y|sh|say) .*<wait\.[\d]>\n\/(?!(y|sh|say) ).*) <wait\.[\d]>/gm,"$1")								// セリフ行の末尾と、次行のエモの末尾にwaitがある場合、除去
+				.replace(/^(\/y|\/sh|\/say)( .*)(<wait\.[\d]>)(\n\/[a-z]+)(?<! <wait\.[\d]>)$/gm,"$1" + "$2" + "$4" + " $3")	// 【同じ処理】セリフ行の次行にエモがあり、エモの末尾にwaitが無い場合、セリフ行のwaitをエモ行の末尾へ移動
+				.replace(/^(\/[a-z]+ .*<wait\.)\d(>$\n\/cwl)/gm,"$1" + "1" + "$2")			  									// /y行のうち、次行が/cwlのものだけwaitを1に変更
+				.replace(/^(.*)<wait\.1>$(?!(\n))/gm,"$1" + "\n\n");															// 最終行に改行を2行入れる
 
 				// console.log("resultの値は：%o",result);
 				// console.log(typeof `resultの型は：${result}`);
 
 				// 7行チェッカー
 				// 1つのマクロ欄へ登録できる行数は15行。1行のセリフに対し1エモを想定すると、1マクロあたりの最大セリフ行数は7行となる。
-				let sections = result.split('\n\n');	// 文字列を\n\nで分割
-				for (let section of sections) {		 // 各セクションの行数を確認
-					let lines = section.split('\n');
-					if (lines.length > 10) {
-						alert("行数が7行を超えている箇所があります。\n後にエモートを入力するので、7行以内に収めるか、マクロを分割してください。");
-						return;
+				if(flag_seven_lines_checker){				// 貼り付けた脚本に /converse が含まれていたら、エモ入りの脚本とみなし、チェッカーを動作させない。
+					let sections = result.split('\n\n');	// 文字列を\n\nで分割
+					for (let section of sections) {		 	// 各セクションの行数を確認
+						let lines = section.split('\n');
+						if (lines.length > 10) {
+							alert("行数が7行を超えている箇所があります。\n後にエモートを入力するので、7行以内に収めるか、マクロを分割してください。");
+							return;
+						}
 					}
 				}
 
