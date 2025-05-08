@@ -660,13 +660,13 @@ button.btn {
 		<legend>登場人物名の入力</legend>
 		<div class="mb3">
 			<label for="chara01">登場人物 1</label>
-			<input size="6" maxlength="4" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara01" id="chara01" class="character-name" value="翔太">
+			<input size="6" maxlength="4" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara01" id="chara01" class="character-name" value="わらし">
 		</div>
 
 		<div class="second_chara">
 			<div class="mb3">
 				<label for="chara02">登場人物 2</label>
-				<input size="6" maxlength="4" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara02" id="chara02" class="character-name" value="美咲">
+				<input size="6" maxlength="4" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara02" id="chara02" class="character-name">
 			</div>
 			<div class="add_chara mb3">
 				<div class="c-markup_view">
@@ -681,7 +681,7 @@ button.btn {
 		<div class="third_chara hidden">
 			<div class="mb3">
 				<label for="chara02">登場人物 3</label>
-				<input size="6" maxlength="4" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara03" id="chara03" class="character-name" value="玲奈">
+				<input size="6" maxlength="4" aria-invalid="false" placeholder="キャラ名を入力します(3文字以内)" type="text" name="chara03" id="chara03" class="character-name">
 			</div>
 		
 			<div class="add_chara mb3">
@@ -814,7 +814,7 @@ button.btn {
 			if( kyakuhon_str.match(/\/converse/g) ){
 				flag_seven_lines_checker = 0;
 			}
-			console.log("flag_seven_lines_checkerの値は：",flag_seven_lines_checker);
+			// console.log("flag_seven_lines_checkerの値は：",flag_seven_lines_checker);
 			const input = document.getElementById('kyakuhon');			 //脚本を貼り付けるtextarea
 			const output = document.getElementById('result-macros');	 //マクロ化後の完成テキストを表示するtextarea
 			let result = input.value;									//貼り付けられた脚本を、プログラム中で使用するための変数
@@ -831,6 +831,12 @@ button.btn {
 				.replace(/^(.*)( |　)$/gm,"$1")
 				.replace(/^(.*)( |　)$/gm,"$1")
 				.replace(/^(.*)( |　)$/gm,"$1");
+
+				//なんかたくさんの半角でスペースあけていた場合
+				result = result.replace(/^   +：$/gm,"　　　：");
+
+				//なんか違う♢←だった場合、◇になおす
+				result = result.replace("♢","◇");
 
 				// ◇Nの"N"が全角だった場合に半角に置換
 					const lines = result.split('\n');   // 行ごとに分割
@@ -850,6 +856,9 @@ button.btn {
 						} else {
 							convertedLines.push(line);
 						}
+					}
+					while (convertedLines.length > 0 && convertedLines[convertedLines.length - 1] === "") {	// 脚本の最後行に改行があった場合、削除。
+						convertedLines.pop();
 					}
 					result = convertedLines.join('\n');   // 変換後の文字列を結合して表示
 				// -----------------------------------
@@ -976,7 +985,7 @@ button.btn {
 				.replace(/^(◇\d$)\n(([※♪]).*$)/gm,"$2" + "\n" + "$1");
 				
 				
-				test_result(result,"1.データクレンジング後");
+				// test_result(result,"1.データクレンジング後");
 
 
 			//-------------------------------
@@ -1021,7 +1030,7 @@ button.btn {
 				}
 				
 
-				test_result(result,"2.バリデーション後");
+				// test_result(result,"2.バリデーション後");
 
 
 			//-------------------------------
@@ -1072,6 +1081,8 @@ button.btn {
 				const pattern3 = /^$/gm;			// 空白の改行
 				const convertedLines2 = [];		 // 変換後の文字列を格納する配列
 
+				// test_result(result,"result");
+
 				let u;
 				for (let i = 0; i < maximumLine; i++) {
 					if (lines2[i].match(pattern2)) {
@@ -1102,7 +1113,7 @@ button.btn {
 				result = convertedLines2.join('\n');   // 変換後の文字列を結合して表示
 
 
-				test_result(result,"3.データフォーマット、カウント完了・マクロ化前");
+				// test_result(result,"3.データフォーマット、カウント完了・マクロ化前");
 
 
 
@@ -1161,13 +1172,15 @@ button.btn {
 
 				// 7行チェッカー
 				// 1つのマクロ欄へ登録できる行数は15行。1行のセリフに対し1エモを想定すると、1マクロあたりの最大セリフ行数は7行となる。
-				if(flag_seven_lines_checker){				// 貼り付けた脚本に /converse が含まれていたら、エモ入りの脚本とみなし、チェッカーを動作させない。
-					let sections = result.split('\n\n');	// 文字列を\n\nで分割
-					for (let section of sections) {		 	// 各セクションの行数を確認
-						let lines = section.split('\n');
-						if (lines.length > 10) {
-							alert("行数が7行を超えている箇所があります。\n後にエモートを入力するので、7行以内に収めるか、マクロを分割してください。");
-							return;
+				if(cNameInputs[0].value !== "わらし")	{				// わらしちゃんパートも同様
+					if(flag_seven_lines_checker){				// 貼り付けた脚本に /converse が含まれていたら、エモ入りの脚本とみなし、チェッカーを動作させない。
+						let sections = result.split('\n\n');	// 文字列を\n\nで分割
+						for (let section of sections) {		 	// 各セクションの行数を確認
+							let lines = section.split('\n');
+							if (lines.length > 10) {
+								alert("行数が7行を超えている箇所があります。\n後にエモートを入力するので、7行以内に収めるか、マクロを分割してください。");
+								return;
+							}
 						}
 					}
 				}
