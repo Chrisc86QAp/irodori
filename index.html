@@ -1144,10 +1144,10 @@ button.btn {
 						if(length < 12){						//「/y ルドラ：」までが7文字
 							push_wait = lines3[i] + " <wait.2>";		// ～4文字なら <wait.2>
 						}
-						else if(length >= 12 && length < 23){   // 5～15文字なら <wait.3>
+						else if(length >= 12 && length < 21){   // 5～13文字なら <wait.3>
 							push_wait = lines3[i] + " <wait.3>";
 						}
-						else if(length >= 23 && length < 38){   // 16～30文字なら <wait.4>
+						else if(length >= 21 && length < 38){   // 14～30文字なら <wait.4>
 							push_wait = lines3[i] + " <wait.4>";
 						}
 						else if(length >= 38){				  	// 31字以上で <wait.5>
